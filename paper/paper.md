@@ -37,7 +37,7 @@ As part of the BioHackathon Europe 2023, we here report...
 
 ## Exemplary Nextflow pipeline
 
-To enable quick testing of the nf-prov plugin we created a simple Nextflow pipeline based on the nf-core template. The pipeline is available at [this GitHub repository](https://github.com/famosab/wrrocmetatest). It runs [fastp](https://github.com/OpenGene/fastp) and [megahit](https://github.com/voutcn/megahit). The README holds all necessary information to run the pipeline locally.
+To enable quick testing of the nf-prov plugin we created a simple Nextflow pipeline based on the nf-core template [cite nf-core paper here]. The pipeline is available at [this GitHub repository](https://github.com/famosab/wrrocmetatest). It runs [fastp](https://github.com/OpenGene/fastp) and [megahit](https://github.com/voutcn/megahit). The README holds all necessary information to run the pipeline locally.
 
 # Formatting
 
