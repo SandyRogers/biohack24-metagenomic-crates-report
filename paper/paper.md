@@ -16,12 +16,12 @@ affiliations:
     index: 1
   - name: Second Affiliation
     index: 2
-date: 8 November 2023
+date: 8 November 2024
 cito-bibliography: paper.bib
-event: BH23EU
-biohackathon_name: "BioHackathon Europe 2023"
+event: BH24EU
+biohackathon_name: "BioHackathon Europe 2024"
 biohackathon_url:   "https://biohackathon-europe.org/"
-biohackathon_location: "Barcelona, Spain, 2023"
+biohackathon_location: "Barcelona, Spain, 2024"
 group: Project 26
 # URL to project git repo --- should contain the actual paper.md:
 git_url: https://github.com/biohackrxiv/publication-template
@@ -34,6 +34,10 @@ authors_short: First Author \emph{et al.}
 # Introduction
 
 As part of the BioHackathon Europe 2023, we here report...
+
+## Exemplary Nextflow pipeline
+
+To enable quick testing of the nf-prov plugin we created a simple Nextflow pipeline based on the nf-core template. The pipeline is available at [this GitHub repository](https://github.com/famosab/wrrocmetatest). It runs [fastp](https://github.com/OpenGene/fastp) and [megahit](https://github.com/voutcn/megahit). The README holds all necessary information to run the pipeline locally.
 
 # Formatting
 
