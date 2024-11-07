@@ -39,6 +39,24 @@ As part of the BioHackathon Europe 2023, we here report...
 
 To enable quick testing of the nf-prov plugin we created a simple Nextflow pipeline based on the nf-core template [cite nf-core paper here]. The pipeline is available at [this GitHub repository](https://github.com/famosab/wrrocmetatest). It runs [fastp](https://github.com/OpenGene/fastp) and [megahit](https://github.com/voutcn/megahit). The README holds all necessary information to run the pipeline locally.
 
+### Process labels in nf-core pipelines
+All nf-core pipelines and pipelines created using the nf-core template make use of the process labels within the module code. These labels are generalized and point towards the defined process resources limits which are defined with `conf/base.config` for example like
+```groovy
+withLabel:process_medium {
+    cpus   = { 6     * task.attempt }
+    memory = { 36.GB * task.attempt }
+    time   = { 8.h   * task.attempt }
+}
+```
+which can be used in the module code like
+```groovy
+process FASTP {
+    tag "$meta.id"
+    label 'process_medium'
+    // process definition here
+}
+```
+
 # Formatting
 
 This document use Markdown and you can look at [this tutorial](https://www.markdowntutorial.com/).
