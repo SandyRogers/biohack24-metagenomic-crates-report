@@ -1,41 +1,83 @@
 ---
-title: 'BioHackEU23 report: Template for the very long title'
-title_short: 'BioHackEU23 #26: unknown chemical substances'
+title: 'Enhancing multi-omic analyses through a federated microbiome analysis service'
+title_short: 'BioHackEU24 #21: federated microbiome analyses'
 tags:
-  - cheminformatics
-  - PubChem
-  - unknown chemical substances
+  - metagenomics
+  - rocrates
+  - federated
 authors:
-  - name: First Author
+  - name: Alexander B. Rogers
+    orcid: 0000-0002-4283-6135
     affiliation: 1
-  - name: Last Author
-    orcid: 0000-0000-0000-0000
+  - name: Famke Bäuerle
+    orcid: 0000-0003-1387-0251
     affiliation: 2
+  - name: Add Yourselves
+    orcid: 0000-0000-0000-0000
+    affiliation: 3
 affiliations:
-  - name: First Affiliation
+  - name: EMBL-EBI
     index: 1
-  - name: Second Affiliation
+  - name: University of Tuebingen
     index: 2
+  - name: Third Affiliation
+    index: 3
 date: 8 November 2024
 cito-bibliography: paper.bib
 event: BH24EU
 biohackathon_name: "BioHackathon Europe 2024"
 biohackathon_url:   "https://biohackathon-europe.org/"
 biohackathon_location: "Barcelona, Spain, 2024"
-group: Project 26
+group: Project 21
 # URL to project git repo --- should contain the actual paper.md:
-git_url: https://github.com/biohackrxiv/publication-template
+git_url: https://github.com/SandyRogers/biohack24-metagenomic-crates-report
 # This is the short authors description that is used at the
 # bottom of the generated paper (typically the first two authors):
-authors_short: First Author \emph{et al.}
+authors_short: Rogers \emph{et al.}
 ---
 
-
 # Introduction
+Multi-omics datasets are an increasingly prevalent and necessary resource for achieving scientific advances in microbial ecosystem research. 
+However, they present twin challenges to research infrastructures: firstly the utility of multi-omics datasets relies entirely on interoperability of omics layers, i.e. on formalised data linking. 
+Secondly, microbiome derived data typically lead to computationally expensive analyses, i.e. on the availability of powerful compute infrastructures. 
+Historically, these challenges have been met within the context of individual database resources or projects. 
+These confines limit the FAIRness of datasets (since they typically aren’t interlinked, directly comparable, or collectively indexed), and mean the scope to analyse such datasets is governed by the available resources of the given project or service. 
+Removing these confines, by establishing a model for the federated analysis of microbiome derived data, will allow these challenges to be met by the community as a whole. 
+More compute can be brought to bear by combining EOSC and ELIXIR infrastructures, Galaxy instances, and existing resources like EMBL-EBI’s MGnify, but this requires adopting a common schema for sharing analysed datasets, including their provenance. 
+Such a schema can also directly contribute to the interlinking of omics layers, using research objects to connect linked open datasets.
 
-As part of the BioHackathon Europe 2023, we here report...
+We sought to address these challenges during BioHackathon Europe 2024, by designing and implementing a schema for this purpose. 
+In this report, we detail our approaches, advances, and the uses of this work to allow the generation of comparable analyses on heterogeneous compute infrastructures.
 
-## Exemplary Nextflow pipeline
+Our vision of a ``federated microbiome analysis service'' centres on the idea that different parts of the metagenomic data flow should be able to be completed in varied ways, by varied groups, on varied infrastructure.
+In practice, a metagenomic project's data flow may follow a timeline like the following:
+
+1. A sampling field expedition takes place in Location X. Metadata such as sampling locations are recorded in lab-books.
+2. The sampler sends samples for DNA sequencing.
+3. The sampler sends their sequences to bioinformatician collaborators for analysis with an in-house pipeline
+  a. The pipeline assembled raw whole-genome-sequencing reads into an assembled metagenome
+  b. The pipeline analyses the assembled metagenomes with a suite of taxonomic and functional analysis tools
+4. The group submits a publication detailing their work
+5. The journal requests that the data are submitted to an archive such as ENA
+6. The reads data and some of the metadata are submitted to ENA
+7. An unrelated researcher wishes to know what existing metagenome data exist for Location X, and finds the raw sequencing data on ENA
+8. They request a metagenomic analysis service like MGnify to analyse the study
+9. MGnify repeat step 3, with a similar but not identical pipeline
+
+If a federated microbiome analysis service was sufficiently easy to opt into, then steps 4–9 could be streamlined by the original analysis data product being made publicly available more directly.
+Of course, existing strategies for this already exist: where publishers do not mandate that sequencing data is submitted to a dedicated repository like ENA, researchers and authors often submit their data (perhaps including the analysis products as well) to a generic digital object repository like Zenodo.
+This has the benefits of making the data publicly available, and resolvable from a DOI.
+However, it does not guarantee anything about the metadata or primary data quality, schema, or reusability in practice.
+
+Therefore in this project we have sought to create the tooling and standards necessary for groups to produce metagenomic sampling and analysis products with enough contextual metadata for them to be practicall reusable.
+A schematic of the envisioned federation is shown in Figure 1.
+We identified several key points in the process where work was required: either in identifying and agreeing metadata terms, or on tooling.
+
+![Conceptual schematic of a federated microbiome analysis service, including work done during this BioHackathon. In this scenario, metagenomics samples' (and studies') metadata should be captured following a common RO-Crate profile. Pipeline processes, embedded tools and results should be annotated so that their execution and creation provenance can be maintained. This allows, for example, for various groups to reuse assemblies whilst maintaining a chain of provenance. Analyses of metaegnomics raw reads and assemblies (or metagenome-assembled genomes) should also follow a shared standard, so that downstream users, clients, and indexes can automatically understand how to index and compare these analyses from hetereogenous pipelines. Finally, metagenomic RO-Crates should make use of RO-Crate's preview features so that they can be self-rendering - for example it should be easy to view any HTML renderings of metadata and results contained within the crate.](./fig1-federated-microbiome-analysis-schematic.png)
+
+
+
+# Exemplary Nextflow pipeline
 
 To enable quick testing of the nf-prov plugin we created a simple Nextflow pipeline based on the nf-core template [cite nf-core paper here]. The pipeline is available at [this GitHub repository](https://github.com/famosab/wrrocmetatest). It runs [fastp](https://github.com/OpenGene/fastp) and [megahit](https://github.com/voutcn/megahit). The README holds all necessary information to run the pipeline locally.
 
@@ -56,7 +98,7 @@ process FASTP {
     // process definition here
 }
 ```
-
+<!-- 
 # Formatting
 
 This document use Markdown and you can look at [this tutorial](https://www.markdowntutorial.com/).
@@ -119,7 +161,7 @@ Possible CiTO typing annotation include:
 * agreesWith
 * disagreesWith
 * updates
-* citation: generic citation
+* citation: generic citation -->
 
 
 # Results
