@@ -12,16 +12,21 @@ authors:
   - name: Famke Bäuerle
     orcid: 0000-0003-1387-0251
     affiliation: 2
+  - name: Tom Tubbesing
+    orcid: 0000-0003-2101-0200
+    affiliation: 3
   - name: Add Yourselves
     orcid: 0000-0000-0000-0000
-    affiliation: 3
+    affiliation: 4
 affiliations:
   - name: EMBL-EBI
     index: 1
   - name: University of Tuebingen
     index: 2
-  - name: Third Affiliation
+  - name: Bielefeld University
     index: 3
+  - name: Fourth Affiliation
+    index: 4
 date: 8 November 2024
 cito-bibliography: paper.bib
 event: BH24EU
