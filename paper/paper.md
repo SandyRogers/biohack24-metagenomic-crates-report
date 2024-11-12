@@ -120,17 +120,19 @@ nf_prov:
   assembly_process:
     tool:
       name: "MEGAHIT"
-      description: "Single node assembler for large and complex metagenomics NGS reads ..."
+      description: "Single node assembler for large and complex ..."
       url: "https://github.com/voutcn/megahit"
       tool_operation: "http://edamontology.org/operation_0525"
     pigz:
       name: "pigz"
-      description: "pigz is a fully functional replacement for gzip that exploits ..."
+      description: "pigz is a fully functional replacement for gzip ..."
       url: "https://zlib.net/pigz/"
     outputs:
       - pattern: "k*.final.contigs.fa.gz"
         datatype: "http://edamontology.org/data_0925"
-        format: ["http://edamontology.org/format_1929", "http://edamontology.org/format_3989"]
+        format:
+          - "http://edamontology.org/format_1929"
+          - "http://edamontology.org/format_3989"
 ```
 
 While substantial progress was made during the hackathon, more work remains to be done. The nf-prov plugin that our work is based on will, in some scenarios, produce invalid RO crates by writing nested items. We have raised this issue with the developer of the plugin. During the biohackathon, we successfully implemented the tool description component, but output descriptions—though feasible through a similar approach—are not yet propagated to the RO crate. 
