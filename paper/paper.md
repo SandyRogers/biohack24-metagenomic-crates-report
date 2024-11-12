@@ -12,16 +12,21 @@ authors:
   - name: Famke Bäuerle
     orcid: 0000-0003-1387-0251
     affiliation: 2
+  - name: Tom Tubbesing
+    orcid: 0000-0003-2101-0200
+    affiliation: 3
   - name: Add Yourselves
     orcid: 0000-0000-0000-0000
-    affiliation: 3
+    affiliation: 4
 affiliations:
   - name: EMBL-EBI
     index: 1
   - name: University of Tuebingen
     index: 2
-  - name: Third Affiliation
+  - name: Bielefeld University
     index: 3
+  - name: Fourth Affiliation
+    index: 4
 date: 8 November 2024
 cito-bibliography: paper.bib
 event: BH24EU
@@ -69,11 +74,11 @@ Of course, existing strategies for this already exist: where publishers do not m
 This has the benefits of making the data publicly available, and resolvable from a DOI.
 However, it does not guarantee anything about the metadata or primary data quality, schema, or reusability in practice.
 
-Therefore in this project we have sought to create the tooling and standards necessary for groups to produce metagenomic sampling and analysis products with enough contextual metadata for them to be practicall reusable.
+Therefore in this project we have sought to create the tooling and standards necessary for groups to produce metagenomic sampling and analysis products with enough contextual metadata for them to be practically reusable.
 A schematic of the envisioned federation is shown in Figure 1.
 We identified several key points in the process where work was required: either in identifying and agreeing metadata terms, or on tooling.
 
-![Conceptual schematic of a federated microbiome analysis service, including work done during this BioHackathon. In this scenario, metagenomics samples' (and studies') metadata should be captured following a common RO-Crate profile. Pipeline processes, embedded tools and results should be annotated so that their execution and creation provenance can be maintained. This allows, for example, for various groups to reuse assemblies whilst maintaining a chain of provenance. Analyses of metaegnomics raw reads and assemblies (or metagenome-assembled genomes) should also follow a shared standard, so that downstream users, clients, and indexes can automatically understand how to index and compare these analyses from hetereogenous pipelines. Finally, metagenomic RO-Crates should make use of RO-Crate's preview features so that they can be self-rendering - for example it should be easy to view any HTML renderings of metadata and results contained within the crate.](./fig1-federated-microbiome-analysis-schematic.png)
+![Conceptual schematic of a federated microbiome analysis service, including work done during this BioHackathon. In this scenario, metagenomics samples' (and studies') metadata should be captured following a common RO-Crate profile. Pipeline processes, embedded tools and results should be annotated so that their execution and creation provenance can be maintained. This allows, for example, for various groups to reuse assemblies whilst maintaining a chain of provenance. Analyses of metagenomics raw reads and assemblies (or metagenome-assembled genomes) should also follow a shared standard, so that downstream users, clients, and indexes can automatically understand how to index and compare these analyses from heterogeneous pipelines. Finally, metagenomic RO-Crates should make use of RO-Crate's preview features so that they can be self-rendering - for example it should be easy to view any HTML renderings of metadata and results contained within the crate.](./fig1-federated-microbiome-analysis-schematic.png)
 
 
 
@@ -98,6 +103,7 @@ process FASTP {
     // process definition here
 }
 ```
+
 <!-- 
 # Formatting
 
@@ -166,6 +172,35 @@ Possible CiTO typing annotation include:
 
 # Results
 
+## Embedding Tool and Output Descriptions of Nextflow Workflows in Research Object Crates
+
+A variety of metagenomics workflows exist which perform similar analytical tasks and generate comparable outputs. However, it is challenging to exchange and programmatically ingest the results from these workflows for further downstream analysis due to the lack of standardized, machine-readable descriptions. To address this gap, our approach aims to enrich metagenomics workflows with structured metadata by embedding tool and output descriptions directly into Research Object (RO) Crates, specifically leveraging the Workflow Run RO Crate format (cite: https://doi.org/10.1371/journal.pone.0309210). This solution allows workflow outputs to be annotated with ontology terms that detail file contents, enabling interoperability and ease of reuse. It is important that existing workflows can be enhanced with minimal additions, such as specific keywords and ontology tags, without requiring any modifications to the workflow's core functionality.
+
+After evaluating several methods, we chose to build upon a fork of the `nf-prov` plugin (https://github.com/fbartusch/nf-prov/tree/workflow-run-crate), extending its functionality to better align with our requirements. This enhancement should allow for the integration of descriptions for both tools used and file contents produced within each workflow. To achieve this, we employ the Nextflow `ext` directive in each process, which specifies a unique keyword. This keyword links to metadata stored in a corresponding YAML file (e.g., `meta.yaml` for `nf-core` processes), allowing tool-specific and output-specific annotations. Workflow developers have the flexibility to include any metadata they find relevant; however, we recommend specifying at least a name, description and url for tools and tagging primary output files with ontologies that specify both file format and content. For instance, a gzipped FASTA file containing an assembly should be annotated with the format terms FASTA (EDAM format_1929) and GZIP (EDAM format_3989) as well as a data term providing information about what the file content represents ("fragment_assembly", EDAM data_0925)
+
+An example YAML configuration below shows how metadata might be structured for an `assembly_process` with tools and output descriptions:
+
+```
+nf_prov:
+  assembly_process:
+    tool:
+      name: "MEGAHIT"
+      description: "Single node assembler for large and complex metagenomics NGS reads ..."
+      url: "https://github.com/voutcn/megahit"
+      tool_operation: "http://edamontology.org/operation_0525"
+    pigz:
+      name: "pigz"
+      description: "pigz is a fully functional replacement for gzip that exploits ..."
+      url: "https://zlib.net/pigz/"
+    outputs:
+      - pattern: "k*.final.contigs.fa.gz"
+        datatype: "http://edamontology.org/data_0925"
+        format: ["http://edamontology.org/format_1929", "http://edamontology.org/format_3989"]
+```
+
+While substantial progress was made during the hackathon, more work remains to be done. The nf-prov plugin that our work is based on will, in some scenarios, produce invalid RO crates by writing nested items. We have raised this issue with the developer of the plugin. During the biohackathon, we successfully implemented the tool description component, but output descriptions—though feasible through a similar approach—are not yet propagated to the RO crate. 
+
+While our current efforts focus on Nextflow workflows, we aim to extend this approach to other workflow management systems, such as Galaxy, where a similar RO Crate structure could provide consistent metadata across diverse platforms. Furthermore, future work would include integrating this method into existing metagenomics workflows to further promote interoperability and reuse in the metagenomics research community.
 
 # Discussion
 
