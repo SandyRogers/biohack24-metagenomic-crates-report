@@ -81,8 +81,26 @@ We identified several key points in the process where work was required: either 
 ![Conceptual schematic of a federated microbiome analysis service, including work done during this BioHackathon. In this scenario, metagenomics samples' (and studies') metadata should be captured following a common RO-Crate profile. Pipeline processes, embedded tools and results should be annotated so that their execution and creation provenance can be maintained. This allows, for example, for various groups to reuse assemblies whilst maintaining a chain of provenance. Analyses of metagenomics raw reads and assemblies (or metagenome-assembled genomes) should also follow a shared standard, so that downstream users, clients, and indexes can automatically understand how to index and compare these analyses from heterogeneous pipelines. Finally, metagenomic RO-Crates should make use of RO-Crate's preview features so that they can be self-rendering - for example it should be easy to view any HTML renderings of metadata and results contained within the crate.](./fig1-federated-microbiome-analysis-schematic.png)
 
 
+# Methods
+Any new standard or convention for publishing and ingesting metagenomic (meta)datasets must be readily adoptable by the various groups, tools, and infrastructures involved.
+For this reason, we based each of our developments on existing work where possible, and considered both metadata standards (i.e. the metadata andformats that should be required and/or recommended), as well as tooling (i.e. the software and libraries that facilitate the adoption of those standards).
 
-# Exemplary Nextflow pipeline
+We therefore identified the following areas for development:
+
+1. Define a minimum set of metadata terms for describing metagenomic datasets including studies, samples, and analyses as RO-Crates, based on existing vocabularies, terms, and minimum-information standards.
+2. Develop the ability to store (as RO-Crates) the metadata associated with executions of metagenomic analysis pipeline runs across different workflow orchestration tools and languages.
+3. Improve the code libraries needed to publish, ingest, and interactively explore those crates in production services.
+
+During BioHackathon Europe 2024, we worked on these three areas as three distinct tracks as shown in Figure 1.
+
+# Results
+
+## Track 1: metadata standards for metagenomic crates
+(Content from Neil's gdoc)
+
+## Track 2: metagenomic analysis pipeline execution metadata
+
+### Exemplary Nextflow pipeline
 
 To enable quick testing of the nf-prov plugin we created a simple Nextflow pipeline based on the nf-core template [@citesAsAuthority:Ewels2020-dj; @citesAsRelated:Langer2024-pd]. The pipeline is available at [this GitHub repository](https://github.com/famosab/wrrocmetatest). It runs [fastp](https://github.com/OpenGene/fastp) and [megahit](https://github.com/voutcn/megahit). The README holds all necessary information to run the pipeline locally.
 
@@ -104,10 +122,7 @@ process FASTP {
 }
 ```
 
-
-# Results
-
-## Embedding Tool and Output Descriptions of Nextflow Workflows in Research Object Crates
+### Embedding Tool and Output Descriptions of Nextflow Workflows in Research Object Crates
 
 A variety of metagenomics workflows exist which perform similar analytical tasks and generate comparable outputs. However, it is challenging to exchange and programmatically ingest the results from these workflows for further downstream analysis due to the lack of standardized, machine-readable descriptions. To address this gap, our approach aims to enrich metagenomics workflows with structured metadata by embedding tool and output descriptions directly into Research Object (RO) Crates, specifically leveraging the [Workflow Run RO Crate](https://w3id.org/workflowhub/workflow-ro-crate/) format [@citesAsAuthority:usesMethodIn:citesAsPotentialSolution:Leo2024-wa]. This solution allows workflow outputs to be annotated with ontology terms that detail file contents, enabling interoperability and ease of reuse. It is important that existing workflows can be enhanced with minimal additions, such as specific keywords and ontology tags, without requiring any modifications to the workflow's core functionality.
 
@@ -138,6 +153,127 @@ nf_prov:
 While substantial progress was made during the hackathon, more work remains to be done. The nf-prov plugin that our work is based on will, in some scenarios, produce invalid RO crates by writing nested items. We have raised this issue with the developer of the plugin. During the biohackathon, we successfully implemented the tool description component, but output descriptions—though feasible through a similar approach—are not yet propagated to the RO crate. 
 
 While our current efforts focus on Nextflow workflows, we aim to extend this approach to other workflow management systems, such as Galaxy, where a similar RO Crate structure could provide consistent metadata across diverse platforms. Furthermore, future work would include integrating this method into existing metagenomics workflows to further promote interoperability and reuse in the metagenomics research community.
+
+## Track 3: tooling for working with RO-Crates
+
+### A python library for managing RO-Crates with strong type validation
+One of the central challenges in handling data objects from disparate origins is ensuring that there is a shared ability to comprehend the meaning of objects and properties within them.
+This is the challenge addressed by frameworks like RDF (Resource Description Framework) [@citesForInformation:Berners-Lee-gx], and by constraint languages like SHACL [@citesAsAuthority:shacl]
+
+In the context of our metagenomic RO-Crates, this means ensuring that only entity types and properties that are themselves resolvable to a definition (e.g. a URI) are used, and ideally only terms from the definition repositories of [schema.org](https://schema.org) and [Bioschemas](https://bioschemas.org) [@citesAsAuthority:Gray2017-nx].
+
+There have been various developments towards validation tools for RO-Crates, that ensure these standards are followed (as well as other crate mechanics, like the existence of a root dataset), for example [`rocrate-validator`](https://github.com/crs4/rocrate-validator).
+
+However, to our knowledge all existing validation tools use *runtime* validation.
+That is, the validator tool takes as input a complete crate and determines whether and how it fails to conform to the expected standards.
+
+In other areas of software development, it is common practice to use *static* type validation: a form of static analysis where the type of variables is checked without executing the code the variables are defined in.
+In practice, static type validation allows developers to see type violations as they write their code, through integrations with their Integrated Development Environments (IDEs).
+
+In the Python ecosystem, one popular approach to introducing both static and runtime type validation is [Pydantic](https://pydantic.dev/).
+Pydantic augments Python's built-in type hints (i.e., `str` for a string) with additional types (i.e., `Latitude`), and custom types (i.e., `MetagenomicSample`):
+
+```python
+from pydantic import BaseModel
+from pydantic_extra_types.coordinate import Latitude, Longitude
+
+class MetagenomicSample(BaseModel):
+    lat: Latitude
+    lon: Longitude
+    sequence: str
+
+my_sample = MetagenomicSample(
+    lat=Latitude(52.0829),
+    lon=Longitude(0.1827),
+    sequence="ACTG"
+)
+```
+
+Using Pydantic and a suitable IDE, a developer would know as they typed that `MetagenomicSample(lat="Europe", sequence=False)` was a type violation. 
+Using additional functional validators, they could also ensure (at runtime) that `sequence` adheres to an alphabet of `[ACTG]`.
+
+Bringing these two concepts together, we decided to adopt an existing Python library, [`pydantic2-schemaorg`](https://github.com/blurry-dev/pydantic2-schemaorg), which provides Pydantic type models for every term in Schema.org, for example using the [`schema.org/GeoCoordinates`](https://schema.org/GeoCoordinates) type to build a richer, type-checked location:
+
+```python
+from pydantic2_schemaorg.GeoCoordinates import GeoCoordinates
+
+location = GeoCoordinates(
+  longitude=14.25,
+  latitude=40.808333,
+  name="Sample location",
+  id_="#my-sample-location"
+)
+```
+
+During BioHackathon Europe 2024 we developed a proof-of-concept for a new Python package ([`pydantic-ro-crates`](https://github.com/EBI-Metagenomics/mgnify-ro-crates/tree/pydantic-ro-crates)) built on top of this.
+This package introduces Pydantic models for RO-Crates and files that should be added to the RO-Crate; otherwise, the crate's metadata graph is constructed by simply appending Schema.org typed objects to the graph:
+
+```python
+roc = ROCrate()
+
+# add the GeoCoordinates entity, defined previously, to the crate:
+roc += location
+```
+
+Additional types not present in Schema.org are still supported, by building new or derived Pydantic models:
+
+```python
+class DataSetWithLocation(Dataset):
+    location: GeoCoordinates
+
+dataset = DataSetWithLocation(
+    id_="./",
+    name="Sample S1",
+    description="My metagenomic sample",
+    identifier="S1",
+    location=location,
+)
+
+roc += dataset
+```
+
+The library currently supports constructing metadata graphs in this way, as well as:
+
+1. adding files to the crate, via a Pydantic type `LocalisableFile` which stores a pointer to the file and its typed metadata
+2. rendering the RO-Crate JSON-LD
+3. packaging the RO-Crate as a `.zip`, with the metadata JSON file and other localised data files
+4. rendering an HTML preview of the metadata
+
+The HTML previews created by `pydantic-ro-crates` support a multi-page "website in a crate" concept.
+When arbitrary HTML files are included in the crate – for example HTML reports generated by analysis pipeline tools like MultiQC – these files are automatically added to a navigation bar in the HTML preview of the crate.
+This improves the usability of the human-readable crate preview, by making it easy to navigate between the rendering of the core crate metadata and renderings of other metadata like quality control information, geo-location mapping, and any data visualisations present.
+
+In designing the new library, we imagined that some functionality (especially associated with these HTML previews) would only be desirable to certain user groups.
+We therefore added a `contrib` section to the codebase, which currently contains a simple tool for generating HTML maps based on lists of `GeoCoordinates`-typed entities, using [`leaflet.js`](https://leafletjs.com/).
+
+For example when constructing a metagenomic RO-Crate that includes metadata for a sample:
+
+```python
+from pydantic_ro_crate.contrib.mapping.render_map import render_leaflet_map
+from pathlib import Path
+
+# Use the mapping plugin to make a nice rendered map of the locations
+render_leaflet_map([location], output=Path("map.html"), title=dataset.name)
+
+# Add the map html to the crate
+roc.add_localised_file(
+   LocalalisableFile(
+       id_="map.html",
+       source_on_host=Path("map.html"),
+       name="Sample map",
+       description="Map of sample coordinates"
+   )
+)
+
+# Package the crate as a zip: the metadata json, preview html, 
+# and the included map html
+roc.zip(Path("my-crate.zip"))
+```
+
+![Composite screenshot summarising the features of the newly developed `pydantic-ro-crates` library. Pythonic code is used to construct crates from strongly typed entities corresponding to Schema.org types (or those derived from them). A plugin is available to construct HTML maps. Rich multi-page HTML previews are supported.](./fig-x-pydantic-ro-crate.png)
+
+### Crate browser
+(Mahfouz and Karthik)
 
 # Discussion
 
