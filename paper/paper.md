@@ -36,7 +36,7 @@ authors:
 affiliations:
   - name: EMBL-EBI
     index: 1
-  - name: University Clinic Tuebingen
+  - name: Institute for Translational Bioinformatics (University Hospital Tübingen) and Quantitative Biology Center (University of Tübingen)
     index: 2
   - name: Bielefeld University
     index: 3
