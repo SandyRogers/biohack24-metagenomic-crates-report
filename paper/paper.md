@@ -210,25 +210,27 @@ For example, a group collecting metagenomic dataset in a commercial context may 
 
 Through this process, we drafted the following metadata schema for a metagenomic study:
 
-| **Type**  | **Field**           | **Description**                                                                                                                                           |
-| --------- | ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| MANDATORY | `study_id`          | schema.org Identifier, which is a `PropertyValue` with sameAs attributes for other known study accessions/IDs/URLs e.g. `ext_study_id`, `study_accession` |
-| MANDATORY | `study_title`       | Brief sequencing study description                                                                                                                        |
-| MANDATORY | `study_description` | Detailed sequencing study description                                                                                                                     |
-| MANDATORY | `center_name`       | Submitting institution or organization name                                                                                                               |
-| MANDATORY | `first_created`     | Date when the study created                                                                                                                               |
-| RECOMMENDED | `study_alias`            | Submitter's unique identifier for the study                                                 |
-| RECOMMENDED | `broker_name`            | Organization or individual acting as broker, if applicable                                  |
-| RECOMMENDED | `status`                 | Status of the study (e.g., 'public', 'private')                                             |
-| RECOMMENDED | `biome_identifier`       | Identifier from ontology, with reference to the ontology URL (e.g. ENVO, GOLD, ENA Tax IDs) |
-| RECOMMENDED | `samples_count`          | Number of samples in the study                                                              |
-| RECOMMENDED | `last_update`            | Last updated date of the study                                                              |
-| RECOMMENDED | `public_release_date`    | Intended public release date of the study                                                   |
-| RECOMMENDED | `related_publications`   | Link to publications related to the study                                                   |
-| RECOMMENDED | `related_geocoordinates` | Link to geocoordinate data                                                                  |
-| RECOMMENDED | `related_studies`        | Link to other related studies                                                               |
-| ALLOWED     | `author_name`            | Name of study contact person                                                                |
-| ALLOWED     | `author_email`           | Email of study contact person                                                               |
+| **Type**    | **Field**                | **Description**                                                                          |
+| ----------- | ------------------------ | ---------------------------------------------------------------------------------------- |
+| MANDATORY   | `study_id`               | schema.org Identifier                                                                    |
+| MANDATORY   | `study_title`            | Brief sequencing study description                                                       |
+| MANDATORY   | `study_description`      | Detailed sequencing study description                                                    |
+| MANDATORY   | `center_name`            | Submitting institution or organization name                                              |
+| MANDATORY   | `first_created`          | Date when the study created                                                              |
+| RECOMMENDED | `study_alias`            | Submitter's unique identifier for the study                                              |
+| RECOMMENDED | `broker_name`            | Organization or individual acting as broker, if applicable                               |
+| RECOMMENDED | `status`                 | Status of the study (e.g., 'public', 'private')                                          |
+| RECOMMENDED | `biome_identifier`       | Identifier from ontology, with reference to the ontology URL (ENVO, GOLD, ENA Tax IDs)   |
+| RECOMMENDED | `samples_count`          | Number of samples in the study                                                           |
+| RECOMMENDED | `last_update`            | Last updated date of the study                                                           |
+| RECOMMENDED | `public_release_date`    | Intended public release date of the study                                                |
+| RECOMMENDED | `related_publications`   | Link to publications related to the study                                                |
+| RECOMMENDED | `related_geocoordinates` | Link to geocoordinate data                                                               |
+| RECOMMENDED | `related_studies`        | Link to other related studies                                                            |
+| ALLOWED     | `author_name`            | Name of study contact person                                                             |
+| ALLOWED     | `author_email`           | Email of study contact person                                                            |
+
+Typically, studies may have multiple alias identifiers, therefore `study_id` should be a `PropertyValue` with `sameAs` attributes for other known study accessions/IDs/URLs e.g. `ext_study_id`, `study_accession` 
 
 We drafted the following metadata schema for a metagenomic sample:
 
