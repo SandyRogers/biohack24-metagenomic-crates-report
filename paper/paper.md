@@ -208,6 +208,10 @@ We compared the metadata standards of:
 This approach was chosen to avoid the creation of any new standard (being rooted in existing standards, implementations, and usage patterns), whilst enabling new adopters to publish compatible crates without necessarily needing to submit their data to a repository like ENA.
 For example, a group collecting metagenomic dataset in a commercial context may wish to publicly publish compatible metadata associated with their sampling whilst not making publicly available the associated primary data sequences.
 
+Our overall approach is shown in Figure 2.
+
+![Schematic flow for how we envisage standardised metagenomic crates may be produced. Crate publishers would use various means to input, store, and curate the metadata of their studies and samples, before perhaps building an "internally useful" RO-Crate. Finally, they would convert that into an RO-Crate of the specified format by mapping to the designated Schema.org and Bioschemas terms. Where mandatory metadata are not directly available, they may use methods to infer that metadata, for example using large language models (LLMs) on less structured metadata like free-text descriptions.](./fig-x-metadata.png)
+
 Through this process, we drafted the following metadata schema for a metagenomic study:
 
 | **Type**    | **Field**                | **Description**                             |
