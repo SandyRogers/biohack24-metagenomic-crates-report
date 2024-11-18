@@ -177,7 +177,79 @@ Our BioHackathon project's tracks therefore focussed on determining how to adopt
 # Results
 
 ## Track 1: metadata standards for metagenomic crates
-(Content from Neil's gdoc)
+The basis of all metagenomic analyses is a biological sample, for example from a marine microbial environment or a human gut microbiome.
+Like other bioinformatic datasets, in practice these typically belong logically to some kind of project or study.
+We therefore focussed on determining the necessary metadata to describe studies and samples in RO-Crates.
+
+### Draft minimum metadata specifications for metagenomic studies and samples
+We compared the metadata standards of:
+
+* Genomic Standards Sonsortium: [MIxS](https://w3id.org/mixs) (Minimum Information about any (x) Sequence (MIxS) standard) MIMS (Minimum Information about Metagenome Sequences)
+* Public sequence repositories: [ENA's](https://www.ebi.ac.uk/ena) [@citesAsAuthority:Burgin2023-ds] Checklist [ERC000011](https://www.ebi.ac.uk/ena/browser/view/ERC000011) along with their Checklist implementation of MIxS standards
+* Community usage: the 100 most-frequently present metadata keys available from ENA submissions on samples that have been processed by [MGnify](https://www.ebi.ac.uk/metagenomics) [@citesAsAuthority:Richardson2023-ot].
+
+This approach was chosen to avoid the creation of any new standard (being rooted in existing standards, implementations, and usage patterns), whilst enabling new adopters to publish compatible crates without necessarily needing to submit their data to a repository like ENA.
+For example, a group collecting metagenomic dataset in a commercial context may wish to publicly publish compatible metadata associated with their sampling whilst not making publicly available the associated primary data sequences.
+
+Through this process, we drafted the following metadata schema for a metagenomic study:
+
+| **Type**  | **Field**           | **Description**                                                                                                                                           |
+| --------- | ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| MANDATORY | `study_id`          | schema.org Identifier, which is a `PropertyValue` with sameAs attributes for other known study accessions/IDs/URLs e.g. `ext_study_id`, `study_accession` |
+| MANDATORY | `study_title`       | Brief sequencing study description                                                                                                                        |
+| MANDATORY | `study_description` | Detailed sequencing study description                                                                                                                     |
+| MANDATORY | `center_name`       | Submitting institution or organization name                                                                                                               |
+| MANDATORY | `first_created`     | Date when the study created                                                                                                                               |
+| RECOMMENDED | `study_alias`            | Submitter's unique identifier for the study                                                 |
+| RECOMMENDED | `broker_name`            | Organization or individual acting as broker, if applicable                                  |
+| RECOMMENDED | `status`                 | Status of the study (e.g., 'public', 'private')                                             |
+| RECOMMENDED | `biome_identifier`       | Identifier from ontology, with reference to the ontology URL (e.g. ENVO, GOLD, ENA Tax IDs) |
+| RECOMMENDED | `samples_count`          | Number of samples in the study                                                              |
+| RECOMMENDED | `last_update`            | Last updated date of the study                                                              |
+| RECOMMENDED | `public_release_date`    | Intended public release date of the study                                                   |
+| RECOMMENDED | `related_publications`   | Link to publications related to the study                                                   |
+| RECOMMENDED | `related_geocoordinates` | Link to geocoordinate data                                                                  |
+| RECOMMENDED | `related_studies`        | Link to other related studies                                                               |
+| ALLOWED     | `author_name`            | Name of study contact person                                                                |
+| ALLOWED     | `author_email`           | Email of study contact person                                                               |
+
+We drafted the following metadata schema for a metagenomic sample:
+
+| **Type**  | **Field**            | **Description**                                 |
+| --------- | -------------------- | ----------------------------------------------- |
+| MANDATORY | `submitted_to_insdc` | submitted to insdc                              |
+| MANDATORY | `investigation_type` | investigation type                              |
+| MANDATORY | `study_name`         | study name                                      |
+| MANDATORY | `study_id`           | Id of the study to which the sample belongs     |
+| MANDATORY | `lat_lon`            | geographic location (longitude)                 |
+| MANDATORY | `geo_loc_name`       | geographic location (country and/or sea,region) |
+| MANDATORY | `collection_date`    | collection date                                 |
+| MANDATORY | `biome`              | environment (biome)                             |
+| MANDATORY | `feature`            | environment (feature)                           |
+| MANDATORY | `material`           | environment (material)                          |
+| MANDATORY | `env_package`        | environmental package                           |
+| MANDATORY | `lat_lon`            | geographic location (latitude)                  |
+| MANDATORY | `taxid`              | NCBI sample classification                      |
+| MANDATORY | `elevation`          | Elevation                                       |
+| MANDATORY | `depth`              | Depth                                           |
+
+### Availability of relevant Schema.org and Bioschemas terms
+From these draft metadata specifications, we began searching for the availability or Schema.org and/or Bioschemas terms to adopt for each metadata field, yielding a small number of apparent matches:
+
+* `lat_lon`, `geo_loc_name`, `related_geocoordinates` can all be of type [`https://schema.org/GeoCoordinates`](https://schema.org/GeoCoordinates), and `elevation` can be a property of it [`https://schema.org/elevation`](https://schema.org/elevation)
+* `last_update` can be a property following [`https://schema.org/dateModified`](https://schema.org/dateModified)
+* `material` can be a property following [`https://schema.org/material`](https://schema.org/material)
+* `related_publications` can be a list of [`https://schema.org/ScholarlyArticle`s](https://schema.org/ScholarlyArticle)
+* `center_name` can be an [`https://schema.org/Organization`](https://schema.org/Organization)
+
+There are appears to be a lack of appropriate Schema.org or Bioschemas terms for some of the other mandatory and recommended terms.
+Notably:
+
+* `depth` is not a possibly property of [`https://schema.org/GeoCoordinates`](https://schema.org/GeoCoordinates).
+* `biome` is a crucial concept in metagenomics, often following an ontology such as [GOLD](https://gold.jgi.doe.gov/ecosystem_classification) or [EnvO](https://environmentontology.com) [@citesAsAuthority:Buttigieg2016-xf], but does not appear to have a schema compatible type in existing vocabularies
+
+Furthermore, it would be broadly benefical if the necessary properties to represent metaegenomic studies and samples were directly available properties on Bioschemas `Studies` and `Samples` vocabulary groups.
+
 
 ## Track 2: metagenomic analysis pipeline execution metadata
 
@@ -358,6 +430,14 @@ roc.zip(Path("my-crate.zip"))
 (Mahfouz and Karthik)
 
 # Discussion
+
+* Hierarchical crates
+* Workflow hub
+* Galaxy crates
+* relationship to existing ro-crate python libs
+* changes to bioschemas / biosamples
+* repository submission (MARS)
+* downstream (e.g. GBIF)
 
 ...
 
