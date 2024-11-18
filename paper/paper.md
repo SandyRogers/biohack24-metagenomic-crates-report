@@ -12,9 +12,24 @@ authors:
   - name: Famke Bäuerle
     orcid: 0000-0003-1387-0251
     affiliation: 2
+  - name: Martin Beracochea
+    orcid: 0000-0003-3472-3736
+    affiliation: 1
+  - name: Matt Burridge
+    orcid: 0000-0002-6201-2598
+    affiliation: 5
+  - name: Alexander Sczyrba
+    orcid: 0000-0002-4405-3847
+    affiliation: 3
+  - name: Mahfouz Shehu
+    orcid: 0009-0002-9470-0368
+    affiliation: 1
   - name: Tom Tubbesing
     orcid: 0000-0003-2101-0200
     affiliation: 3
+  - name: Anil Wipat
+    orcid: 0000-0001-7310-4191
+    affiliation: 5
   - name: Add Yourselves
     orcid: 0000-0000-0000-0000
     affiliation: 4
@@ -27,6 +42,8 @@ affiliations:
     index: 3
   - name: Fourth Affiliation
     index: 4
+  - name: Newcastle University
+    index: 5
 date: 8 November 2024
 cito-bibliography: paper.bib
 event: BH24EU
