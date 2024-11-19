@@ -36,7 +36,7 @@ authors:
 affiliations:
   - name: EMBL-EBI
     index: 1
-  - name: University of Tuebingen
+  - name: Institute for Translational Bioinformatics (University Hospital Tübingen) and Quantitative Biology Center (University of Tübingen)
     index: 2
   - name: Bielefeld University
     index: 3
@@ -278,10 +278,12 @@ Furthermore, it would be broadly benefical if the necessary properties to repres
 
 ### Exemplary Nextflow pipeline
 
-To enable quick testing of the nf-prov plugin we created a simple Nextflow pipeline based on the nf-core template [@citesAsAuthority:Ewels2020-dj; @citesAsRelated:Langer2024-pd]. The pipeline is available at [this GitHub repository](https://github.com/famosab/wrrocmetatest). It runs [fastp](https://github.com/OpenGene/fastp) and [megahit](https://github.com/voutcn/megahit). The README holds all necessary information to run the pipeline locally.
+To enable quick testing of the nf-prov plugin we created a simple Nextflow pipeline based on the nf-core template [@citesAsAuthority:Ewels2020-dj; @citesAsRelated:Langer2024-pd]. The pipeline is available on GitHub at [famosab/wrrocmetatest](https://github.com/famosab/wrrocmetatest). It runs [fastp](https://github.com/OpenGene/fastp) and [megahit](https://github.com/voutcn/megahit). The README holds all necessary information to run the pipeline locally. Nf-core tooling made the creation of this pipeline really quick and enabled us to focus our work on the nf-prov plugin.
 
-### Process labels in nf-core pipelines
-All nf-core pipelines and pipelines created using the nf-core template make use of the process labels within the module code. These labels are generalized and point towards the defined process resources limits which are defined with `conf/base.config` for example like
+### Process labels, ext directive and meta.yaml in nf-core modules
+Process labels, ext directive and meta.yaml are three different entities which seemed fitting for out tasks of embedding tool and output descriptions of Nextflow workflows in Research Object Crates. The following section explains each of those entities and shows which information can be extracted from them.
+
+All Nextflow pipelines but especially nf-core pipelines and pipelines created using the nf-core template can use nf-core modules and subworkflows. These enable code reuse and modularization of the pipeline code. Nf-core modules make use of the process labels within the module code. These labels are generalized and point towards the defined process resources limits which are defined with `conf/base.config` for example like
 
 ```groovy
 withLabel:process_medium {
@@ -293,17 +295,27 @@ withLabel:process_medium {
 which can be used in the module code like
 ```groovy
 process FASTP {
-    tag "$meta.id"
     label 'process_medium'
     // process definition here
 }
 ```
 
+Additional to the process label which is focussed on resource allocation, Nextflow also offers the `ext` directive which can be used to add additional information to the process. This information can be used to add metadata to the process which can be used for provenance tracking. Modules can be tagged with specific names or links to ontologies. These fields can then later be imported into the RO-crate.
+```groovy
+process FASTP {
+    label 'process_medium'
+    ext name: 'fastp', applicationCategory: 'http://edamontology.org/operation_0510'
+    // process definition here
+}
+```
+
+All nf-core modules come with a `meta.yaml` file which holds information about the tool(s) used in the module. the input and output files, a general description of the tool and the module maintainer(s). Especially the fields relating to the used tools, the input files and the output files are relevant for the creation of the RO-Crate. The `meta.yaml` file can be used to extract the necessary information, which we added to the `nf-prov` plugin (more details see next section).
+
 ### Embedding Tool and Output Descriptions of Nextflow Workflows in Research Object Crates
 
 A variety of metagenomics workflows exist which perform similar analytical tasks and generate comparable outputs. However, it is challenging to exchange and programmatically ingest the results from these workflows for further downstream analysis due to the lack of standardized, machine-readable descriptions. To address this gap, our approach aims to enrich metagenomics workflows with structured metadata by embedding tool and output descriptions directly into Research Object (RO) Crates, specifically leveraging the [Workflow Run RO Crate](https://w3id.org/workflowhub/workflow-ro-crate/) format [@citesAsAuthority:usesMethodIn:citesAsPotentialSolution:Leo2024-wa]. This solution allows workflow outputs to be annotated with ontology terms that detail file contents, enabling interoperability and ease of reuse. It is important that existing workflows can be enhanced with minimal additions, such as specific keywords and ontology tags, without requiring any modifications to the workflow's core functionality.
 
-After evaluating several methods, we chose to build upon a fork of the [`nf-prov` plugin](https://github.com/fbartusch/nf-prov/tree/workflow-run-crate), extending its functionality to better align with our requirements. This enhancement should allow for the integration of descriptions for both tools used and file contents produced within each workflow. To achieve this, we employ the Nextflow `ext` directive in each process, which specifies a unique keyword. This keyword links to metadata stored in a corresponding YAML file (e.g., `meta.yaml` for `nf-core` processes), allowing tool-specific and output-specific annotations. Workflow developers have the flexibility to include any metadata they find relevant; however, we recommend specifying at least a name, description and url for tools and tagging primary output files with ontologies that specify both file format and content. For instance, a gzipped FASTA file containing an assembly should be annotated with the format terms FASTA ([EDAM format_1929](http://edamontology.org/format_1929)) and GZIP ([EDAM format_3989](http://edamontology.org/format_3989)) as well as a data term providing information about what the file content represents ("fragment_assembly", [EDAM data_0925](https://bioportal.bioontology.org/ontologies/EDAM?p=classes&conceptid=data_0925)), adopting terms from the [EDAM ontology](https://edamontology.org) [@citesForInformation:Black2022-or].
+After evaluating several methods, we chose to build upon a fork of the [`nf-prov` plugin](https://github.com/fbartusch/nf-prov/tree/workflow-run-crate), extending its functionality to better align with our requirements which can be found in our own [fork famosab/nf-prov](https://github.com/famosab/nf-prov/tree/workflow-run-crate) in the branch `workflow-run-crate`. This enhancement should allow for the integration of descriptions for both tools used and file contents produced within each workflow. To achieve this, we employ the Nextflow `ext` directive in each process, which specifies a unique keyword. This keyword links to metadata stored in a corresponding YAML file (e.g., `meta.yaml` for `nf-core` processes), allowing tool-specific and output-specific annotations. Workflow developers have the flexibility to include any metadata they find relevant; however, we recommend specifying at least a name, description and url for tools and tagging primary output files with ontologies that specify both file format and content. For instance, a gzipped FASTA file containing an assembly should be annotated with the format terms FASTA ([EDAM format_1929](http://edamontology.org/format_1929)) and GZIP ([EDAM format_3989](http://edamontology.org/format_3989)) as well as a data term providing information about what the file content represents ("fragment_assembly", [EDAM data_0925](https://bioportal.bioontology.org/ontologies/EDAM?p=classes&conceptid=data_0925)), adopting terms from the [EDAM ontology](https://edamontology.org) [@citesForInformation:Black2022-or].
 
 An example YAML configuration below shows how metadata might be structured for an `assembly_process` with tools and output descriptions:
 
