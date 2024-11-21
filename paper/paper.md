@@ -463,6 +463,34 @@ roc.zip(Path("my-crate.zip"))
 
 ### Crate browser
 (Mahfouz and Karthik)
+We also developed a proof of concept for a simple crate browser that can be used to view and browse the contents of an RO-Crate.
+It serves the following purposes:
+1. An easy and generalised way to view RO crate contents in a human-readable way:
+   1. To provide a simple way to browse the contents of an RO-Crate using the preview.html file. This also supports a multi-page preview. i.e if the crate contains multiple HTML files, the browser will display a list of all the HTML files in the crate and allow the user to navigate between them.
+2. A simple way to convert any Ro-Crate to a self contained browsable website
+   1. By leveraging on the new pydantic_ro_crate library, we can easily convert any RO-Crate to a self-contained website that can be easily shared with others. By wrapping this functionality of the library in a simple web server, we can provide a simple way to convert any RO-Crate to a self-contained website that can be easily shared with others.
+   2. This can be deployed as a hosted service, that can be used to convert any RO-Crate to a self-contained website that can be easily shared with others.
+3. The RoCrate Browser can also be used as an independent JavaScript library that can be embedded in any web page to provide a simple way to view the contents of an RO-Crate. We've published 3 variants of this on NPM
+   1. React Library: [react-ro-crate-browser](https://www.npmjs.com/package/react-ro-crate-browser)
+   2. Vue Library: [vue-ro-crate-browser](https://www.npmjs.com/package/vue-ro-crate-browser)
+   3. Web Component: [ro-crate-browser-web-component](https://www.npmjs.com/package/ro-crate-browser-component)
+   
+Here is a mermaid diagram that shows the architecture of the RoCrate Browser:
+
+![An image describing the architecture of the `Ro Crate Browser` ](./fig-x-ro-crate-browser-architecture.png)
+
+
+### Converting an RO-Crate to a Browsable self-contained website:
+The Crate browser built on previous work done by David Lopez on this repository [https://github.com/davelopez/ro-crate-zip-explorer/tree/main/examples/vue/ro-crate-zip-vue]. 
+This was a tool initially designed to list the contents of an RO-Crate zip file.
+As mentioned above, the RO-Crate browser builds on this to give a more interactive and user-friendly way to view the contents of an RO-Crate zip file as a self-contained website.
+The 2 diagrams below gives more details about how it works:
+
+![An image describing the RO Crate conversion feature of the `Ro Crate Browser` ](./fig-x-converting-ro-crates.png)
+
+### Browsing an RO-Crate as a self-contained website:
+![An image describing the browsing feature of the `Ro Crate Browser` ](./fig-x-ro-crate-browsing.png)
+
 
 # Discussion
 
