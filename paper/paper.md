@@ -480,6 +480,16 @@ Here is a mermaid diagram that shows the architecture of the RoCrate Browser:
 ![An image describing the architecture of the `Ro Crate Browser` ](./fig-x-ro-crate-browser-architecture.png)
 
 
+### Converting an RO-Crate to a Browsable self-contained website:
+The Crate browser built on previous work done by David Lopez on this repository [https://github.com/davelopez/ro-crate-zip-explorer/tree/main/examples/vue/ro-crate-zip-vue]. 
+This was a tool initially designed to list the contents of an RO-Crate zip file.
+As mentioned above, the RO-Crate browser builds on this to give a more interactive and user-friendly way to view the contents of an RO-Crate zip file as a self-contained website.
+The 2 diagrams below gives more details about how it works:
+
+![An image describing the RO Crate conversion feature of the `Ro Crate Browser` ](./fig-x-converting-ro-crates.png)
+
+### Browsing an RO-Crate as a self-contained website:
+![An image describing the browsing feature of the `Ro Crate Browser` ](./fig-x-ro-crate-browsing.png)
 
 
 # Discussion
