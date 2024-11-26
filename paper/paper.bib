@@ -466,3 +466,427 @@
                Habitat; Indoor environment; Ontology; Sustainable development",
   language  = "en"
 }
+
+@ARTICLE{Thakur2024-ey,
+  title    = "{EMBL}'s European bioinformatics institute ({EMBL}-{EBI}) in 2023",
+  author   = "Thakur, Matthew and Buniello, Annalisa and Brooksbank, Catherine
+              and Gurwitz, Kim T and Hall, Matthew and Hartley, Matthew and
+              Hulcoop, David G and Leach, Andrew R and Marques, Diana and
+              Martin, Maria and Mithani, Aziz and McDonagh, Ellen M and
+              Mutasa-Gottgens, Euphemia and Ochoa, David and Perez-Riverol,
+              Yasset and Stephenson, James and Varadi, Mihaly and Velankar,
+              Sameer and Vizcaino, Juan Antonio and Witham, Rick and McEntyre,
+              Johanna",
+  journal  = "Nucleic Acids Res.",
+  volume   =  52,
+  number   = "D1",
+  pages    = "D10--D17",
+  abstract = "The European Molecular Biology Laboratory's European
+              Bioinformatics Institute (EMBL-EBI) is one of the world's leading
+              sources of public biomolecular data. Based at the Wellcome Genome
+              Campus in Hinxton, UK, EMBL-EBI is one of six sites of the
+              European Molecular Biology Laboratory (EMBL), Europe's only
+              intergovernmental life sciences organisation. This overview
+              summarises the latest developments in the services provided by
+              EMBL-EBI data resources to scientific communities globally. These
+              developments aim to ensure EMBL-EBI resources meet the current and
+              future needs of these scientific communities, accelerating the
+              impact of open biological data for all.",
+  month    =  jan,
+  year     =  2024,
+  language = "en"
+}
+
+@ARTICLE{Huson2007-ju,
+  title     = "{MEGAN} analysis of metagenomic data",
+  author    = "Huson, Daniel H and Auch, Alexander F and Qi, Ji and Schuster,
+               Stephan C",
+  journal   = "Genome Res.",
+  publisher = "Cold Spring Harbor Laboratory",
+  volume    =  17,
+  number    =  3,
+  pages     = "377--386",
+  abstract  = "Metagenomics is the study of the genomic content of a sample of
+               organisms obtained from a common habitat using targeted or random
+               sequencing. Goals include understanding the extent and role of
+               microbial diversity. The taxonomical content of such a sample is
+               usually estimated by comparison against sequence databases of
+               known sequences. Most published studies use the analysis of
+               paired-end reads, complete sequences of environmental fosmid and
+               BAC clones, or environmental assemblies. Emerging
+               sequencing-by-synthesis technologies with very high throughput
+               are paving the way to low-cost random ``shotgun'' approaches.
+               This paper introduces MEGAN, a new computer program that allows
+               laptop analysis of large metagenomic data sets. In a
+               preprocessing step, the set of DNA sequences is compared against
+               databases of known sequences using BLAST or another comparison
+               tool. MEGAN is then used to compute and explore the taxonomical
+               content of the data set, employing the NCBI taxonomy to summarize
+               and order the results. A simple lowest common ancestor algorithm
+               assigns reads to taxa such that the taxonomical level of the
+               assigned taxon reflects the level of conservation of the
+               sequence. The software allows large data sets to be dissected
+               without the need for assembly or the targeting of specific
+               phylogenetic markers. It provides graphical and statistical
+               output for comparing different data sets. The approach is applied
+               to several data sets, including the Sargasso Sea data set, a
+               recently published metagenomic data set sampled from a mammoth
+               bone, and several complete microbial genomes. Also, simulations
+               that evaluate the performance of the approach for different read
+               lengths are presented.",
+  month     =  mar,
+  year      =  2007,
+  language  = "en"
+}
+
+@ARTICLE{Morais2022-ja,
+  title     = "{MEDUSA}: A pipeline for sensitive taxonomic classification and
+               flexible functional annotation of metagenomic shotgun sequences",
+  author    = "Morais, Diego A A and Cavalcante, João V F and Monteiro, Shênia S
+               and Pasquali, Matheus A B and Dalmolin, Rodrigo J S",
+  journal   = "Front. Genet.",
+  publisher = "Frontiers Media SA",
+  volume    =  13,
+  pages     =  814437,
+  abstract  = "Metagenomic studies unravel details about the taxonomic
+               composition and the functions performed by microbial communities.
+               As a complete metagenomic analysis requires different tools for
+               different purposes, the selection and setup of these tools remain
+               challenging. Furthermore, the chosen toolset will affect the
+               accuracy, the formatting, and the functional identifiers reported
+               in the results, impacting the results interpretation and the
+               biological answer obtained. Thus, we surveyed state-of-the-art
+               tools available in the literature, created simulated datasets,
+               and performed benchmarks to design a sensitive and flexible
+               metagenomic analysis pipeline. Here we present MEDUSA, an
+               efficient pipeline to conduct comprehensive metagenomic analyses.
+               It performs preprocessing, assembly, alignment, taxonomic
+               classification, and functional annotation on shotgun data,
+               supporting user-built dictionaries to transfer annotations to any
+               functional identifier. MEDUSA includes several tools, as fastp,
+               Bowtie2, DIAMOND, Kaiju, MEGAHIT, and a novel tool implemented in
+               Python to transfer annotations to BLAST/DIAMOND alignment
+               results. These tools are installed via Conda, and the workflow is
+               managed by Snakemake, easing the setup and execution. Compared
+               with MEGAN 6 Community Edition, MEDUSA correctly identifies more
+               species, especially the less abundant, and is more suited for
+               functional analysis using Gene Ontology identifiers.",
+  month     =  mar,
+  year      =  2022,
+  keywords  = "bioinformatics; functional annotation; metagenomics; pipeline;
+               shotgun sequences; taxonomic classification",
+  language  = "en"
+}
+
+@ARTICLE{Uritskiy2018-ud,
+  title     = "{MetaWRAP}-a flexible pipeline for genome-resolved metagenomic
+               data analysis",
+  author    = "Uritskiy, Gherman V and DiRuggiero, Jocelyne and Taylor, James",
+  journal   = "Microbiome",
+  publisher = "Springer Science and Business Media LLC",
+  volume    =  6,
+  number    =  1,
+  pages     =  158,
+  abstract  = "BACKGROUND: The study of microbiomes using whole-metagenome
+               shotgun sequencing enables the analysis of uncultivated microbial
+               populations that may have important roles in their environments.
+               Extracting individual draft genomes (bins) facilitates
+               metagenomic analysis at the single genome level. Software and
+               pipelines for such analysis have become diverse and
+               sophisticated, resulting in a significant burden for biologists
+               to access and use them. Furthermore, while bin extraction
+               algorithms are rapidly improving, there is still a lack of tools
+               for their evaluation and visualization. RESULTS: To address these
+               challenges, we present metaWRAP, a modular pipeline software for
+               shotgun metagenomic data analysis. MetaWRAP deploys
+               state-of-the-art software to handle metagenomic data processing
+               starting from raw sequencing reads and ending in metagenomic bins
+               and their analysis. MetaWRAP is flexible enough to give
+               investigators control over the analysis, while still being
+               easy-to-install and easy-to-use. It includes hybrid algorithms
+               that leverage the strengths of a variety of software to extract
+               and refine high-quality bins from metagenomic data through bin
+               consolidation and reassembly. MetaWRAP's hybrid bin extraction
+               algorithm outperforms individual binning approaches and other bin
+               consolidation programs in both synthetic and real data sets.
+               Finally, metaWRAP comes with numerous modules for the analysis of
+               metagenomic bins, including taxonomy assignment, abundance
+               estimation, functional annotation, and visualization.
+               CONCLUSIONS: MetaWRAP is an easy-to-use modular pipeline that
+               automates the core tasks in metagenomic analysis, while
+               contributing significant improvements to the extraction and
+               interpretation of high-quality metagenomic bins. The bin
+               refinement and reassembly modules of metaWRAP consistently
+               outperform other binning approaches. Each module of metaWRAP is
+               also a standalone component, making it a flexible and versatile
+               tool for tackling metagenomic shotgun sequencing data. MetaWRAP
+               is open-source software available at
+               https://github.com/bxlab/metaWRAP .",
+  month     =  sep,
+  year      =  2018,
+  keywords  = "Bin; Binning; Draft genome; Metagenome; Metagenomics; Pipeline;
+               Reassembly; WGS",
+  language  = "en"
+}
+@ARTICLE{Molder2021-wi,
+  title     = "Sustainable data analysis with Snakemake",
+  author    = "Mölder, Felix and Jablonski, Kim Philipp and Letcher, Brice and
+               Hall, Michael B and Tomkins-Tinch, Christopher H and Sochat,
+               Vanessa and Forster, Jan and Lee, Soohyun and Twardziok, Sven O
+               and Kanitz, Alexander and Wilm, Andreas and Holtgrewe, Manuel and
+               Rahmann, Sven and Nahnsen, Sven and Köster, Johannes",
+  journal   = "F1000Res.",
+  publisher = "F1000 Research Ltd",
+  volume    =  10,
+  pages     =  33,
+  abstract  = "Data analysis often entails a multitude of heterogeneous steps,
+               from the application of various command line tools to the usage
+               of scripting languages like R or Python for the generation of
+               plots and tables. It is widely recognized that data analyses
+               should ideally be conducted in a reproducible way.
+               Reproducibility enables technical validation and regeneration of
+               results on the original or even new data. However,
+               reproducibility alone is by no means sufficient to deliver an
+               analysis that is of lasting impact (i.e., sustainable) for the
+               field, or even just one research group. We postulate that it is
+               equally important to ensure adaptability and transparency. The
+               former describes the ability to modify the analysis to answer
+               extended or slightly different research questions. The latter
+               describes the ability to understand the analysis in order to
+               judge whether it is not only technically, but methodologically
+               valid. Here, we analyze the properties needed for a data analysis
+               to become reproducible, adaptable, and transparent. We show how
+               the popular workflow management system Snakemake can be used to
+               guarantee this, and how it enables an ergonomic, combined,
+               unified representation of all steps involved in data analysis,
+               ranging from raw data processing, to quality control and
+               fine-grained, interactive exploration and plotting of final
+               results.",
+  month     =  jan,
+  year      =  2021,
+  keywords  = "adaptability; data analysis; reproducibility; scalability;
+               sustainability; transparency; workflow management",
+  language  = "en"
+}
+
+@ARTICLE{Crusoe2022-sb,
+  title     = "Methods included: standardizing computational reuse and
+               portability with the Common Workflow Language",
+  author    = "Crusoe, Michael R and Abeln, Sanne and Iosup, Alexandru and
+               Amstutz, Peter and Chilton, John and Tijanić, Nebojša and
+               Ménager, Hervé and Soiland-Reyes, Stian and Gavrilović, Bogdan
+               and Goble, Carole and Community, The Cwl",
+  journal   = "Commun. ACM",
+  publisher = "Association for Computing Machinery",
+  address   = "New York, NY, USA",
+  volume    =  65,
+  number    =  6,
+  pages     = "54--63",
+  abstract  = "Standardizing computational reuse and portability with the Common
+               Workflow Language.",
+  month     =  may,
+  year      =  2022
+}
+@ARTICLE{Di-Tommaso2017-bx,
+  title    = "Nextflow enables reproducible computational workflows",
+  author   = "Di Tommaso, Paolo and Chatzou, Maria and Floden, Evan W and Barja,
+              Pablo Prieto and Palumbo, Emilio and Notredame, Cedric",
+  journal  = "Nat. Biotechnol.",
+  volume   =  35,
+  number   =  4,
+  pages    = "316--319",
+  month    =  apr,
+  year     =  2017,
+  language = "en"
+}
+@MISC{Chadwick2024-va,
+  title     = "ro-crate-py",
+  author    = "Chadwick, Eli and De Geest, Paul and Droesbeke, Bert and Eguinoa,
+               Ignacio and Gaignard, Alban and Hörtenhuber, Matthias and Huber,
+               Sebastiaan and Kinoshita, Bruno and Leo, Simone and Pireddu, Luca
+               and Rodríguez-Navas, Laura and Sirvent, Raül and Soiland-Reyes,
+               Stian",
+  publisher = "Zenodo",
+  abstract  = "What's Changed Tutorial updates by @elichad in
+               https://github.com/ResearchObject/ro-crate-py/pull/180 Add help
+               text for some CLI args by @elichad in
+               https://github.com/ResearchObject/ro-crate-py/pull/181 Better
+               handling of HTTP header by @simleo in
+               https://github.com/ResearchObject/ro-crate-py/pull/182 Add
+               ro-crate instantiation from a dictionary by @simleo in
+               https://github.com/ResearchObject/ro-crate-py/pull/183
+               CreativeWorkStatus -> creativeWorkStatus by @mashehu in
+               https://github.com/ResearchObject/ro-crate-py/pull/184 Allow
+               other entities as values in Entity's properties arg by @simleo in
+               https://github.com/ResearchObject/ro-crate-py/pull/192 Add method
+               to add actions to the crate by @simleo in
+               https://github.com/ResearchObject/ro-crate-py/pull/191 Raise
+               exception if trying to set a dict with no id as property value by
+               @simleo in https://github.com/ResearchObject/ro-crate-py/pull/193
+               Clarify the role of dest\_path in the readme by @simleo in
+               https://github.com/ResearchObject/ro-crate-py/pull/194 New
+               Contributors @elichad made their first contribution in
+               https://github.com/ResearchObject/ro-crate-py/pull/180 Full
+               Changelog:
+               https://github.com/ResearchObject/ro-crate-py/compare/0.10.0...0.11.0",
+  year      =  2024
+}
+
+@MISC{Bloemen2024-jb,
+  title     = "Creating a Dataverse {RO}-Crate exporter with {FAIR}-{IMPACT}
+               support",
+  author    = "Bloemen, Dieuwertje and Karadeniz, Özgür",
+  publisher = "Zenodo",
+  abstract  = "In March 2023, a call was launched by the EOSC FAIR-IMPACT
+               project called ``Support offer \#2: Enabling FAIR Signposting and
+               RO-Crate for content/metadata discovery and consumption''. We
+               decided to join the short-term support action to get expert
+               advice on how best to integrate RO-Crate in Dataverse in a
+               general and widely applicable way to improve the interoperability
+               of data structure and metadata in repositories using the
+               Dataverse software.Due to the relatively short time span of the
+               FAIR-IMPACT project, we focused on two major aspects; an RO-Crate
+               previewer, and a schema.org-based RO-Crate metadata exporter. The
+               first was relatively easy to set up, as there was already an
+               existing open-source html previewer available. The RO-Crate
+               metadata exporter was a bit more challenging as there was first a
+               mapping necessary of all metadata elements to schema.org and
+               because we wanted to ensure there was some configurability for
+               installations that use custom metadata fields in their set-up. We
+               decided to stick to the RO-Crate recommendation to use
+               schema.org, as by using it whenever possible, we facilitate the
+               interoperability with other systems or metadata management tools
+               as well.This is a first step in a larger project to fully
+               integrate RO-Crate in Dataverse.",
+  year      =  2024
+}
+@misc{fair-ro-crate-in-galaxy,
+author = "Paul De Geest",
+	title = "Exporting Workflow Run RO-Crates from Galaxy (Galaxy Training Materials)",
+	year = "",
+	month = "",
+	day = ""
+	url = "\url{https://training.galaxyproject.org/training-material/topics/fair/tutorials/ro-crate-in-galaxy/tutorial.html}",
+	note = "[Online; accessed Tue Nov 26 2024]"
+}
+@article{Hiltemann_2023,
+	doi = {10.1371/journal.pcbi.1010752},
+	url = {https://doi.org/10.1371%2Fjournal.pcbi.1010752},
+	year = 2023,
+	month = {jan},
+	publisher = {Public Library of Science ({PLoS})},
+	volume = {19},
+	number = {1},
+	pages = {e1010752},
+	author = {Saskia Hiltemann and Helena Rasche and Simon Gladman and Hans-Rudolf Hotz and Delphine Larivi{\`{e}}re and Daniel Blankenberg and Pratik D. Jagtap and Thomas Wollmann and Anthony Bretaudeau and Nadia Gou{\'{e}} and Timothy J. Griffin and Coline Royaux and Yvan Le Bras and Subina Mehta and Anna Syme and Frederik Coppens and Bert Droesbeke and Nicola Soranzo and Wendi Bacon and Fotis Psomopoulos and Crist{\'{o}}bal Gallardo-Alba and John Davis and Melanie Christine Föll and Matthias Fahrner and Maria A. Doyle and Beatriz Serrano-Solano and Anne Claire Fouilloux and Peter van Heusden and Wolfgang Maier and Dave Clements and Florian Heyl and Björn Grüning and B{\'{e}}r{\'{e}}nice Batut and},
+	editor = {Francis Ouellette},
+	title = {Galaxy Training: A powerful framework for teaching!},
+	journal = {PLoS Comput Biol} Computational Biology}
+}
+@ARTICLE{Galaxy-Community2024-ic,
+  title     = "The Galaxy platform for accessible, reproducible, and
+               collaborative data analyses: 2024 update",
+  author    = "{Galaxy Community}",
+  journal   = "Nucleic Acids Res.",
+  publisher = "Oxford University Press (OUP)",
+  volume    =  52,
+  number    = "W1",
+  pages     = "W83--W94",
+  abstract  = "Galaxy (https://galaxyproject.org) is deployed globally,
+               predominantly through free-to-use services, supporting
+               user-driven research that broadens in scope each year. Users are
+               attracted to public Galaxy services by platform stability, tool
+               and reference dataset diversity, training, support and
+               integration, which enables complex, reproducible, shareable data
+               analysis. Applying the principles of user experience design
+               (UXD), has driven improvements in accessibility, tool
+               discoverability through Galaxy Labs/subdomains, and a redesigned
+               Galaxy ToolShed. Galaxy tool capabilities are progressing in two
+               strategic directions: integrating general purpose graphical
+               processing units (GPGPU) access for cutting-edge methods, and
+               licensed tool support. Engagement with global research consortia
+               is being increased by developing more workflows in Galaxy and by
+               resourcing the public Galaxy services to run them. The Galaxy
+               Training Network (GTN) portfolio has grown in both size, and
+               accessibility, through learning paths and direct integration with
+               Galaxy tools that feature in training courses. Code development
+               continues in line with the Galaxy Project roadmap, with
+               improvements to job scheduling and the user interface.
+               Environmental impact assessment is also helping engage users and
+               developers, reminding them of their role in sustainability, by
+               displaying estimated CO2 emissions generated by each Galaxy job.",
+  month     =  jul,
+  year      =  2024,
+  language  = "en"
+}
+@ARTICLE{Rosonovski2024-sg,
+  title    = "Europe {PMC} in 2023",
+  author   = "Rosonovski, Summer and Levchenko, Maria and Bhatnagar, Rajat and
+              Chandrasekaran, Umamageswari and Faulk, Lynne and Hassan, Islam
+              and Jeffryes, Matt and Mubashar, Syed Irtaza and Nassar, Maaly and
+              Jayaprabha Palanisamy, Madhumiethaa and Parkin, Michael and
+              Poluru, Jagadeeswararao and Rogers, Frances and Saha, Shyamasree
+              and Selim, Mohamed and Shafique, Zunaira and Ide-Smith, Michele
+              and Stephenson, David and Tirunagari, Santosh and Venkatesan,
+              Aravind and Xing, Lijun and Harrison, Melissa",
+  journal  = "Nucleic Acids Res.",
+  volume   =  52,
+  number   = "D1",
+  pages    = "D1668--D1676",
+  abstract = "Europe PMC (https://europepmc.org/) is an open access database of
+              life science journal articles and preprints, which contains over
+              42 million abstracts and over 9 million full text articles
+              accessible via the website, APIs and bulk download. This
+              publication outlines new developments to the Europe PMC platform
+              since the last database update in 2020 (1) and focuses on five
+              main areas. (i) Improving discoverability, reproducibility and
+              trust in preprints by indexing new preprint content, enriching
+              preprint metadata and identifying withdrawn and removed preprints.
+              (ii) Enhancing support for text and data mining by expanding the
+              types of annotations provided and developing the Europe PMC
+              Annotations Corpus, which can be used to train machine learning
+              models to increase their accuracy and precision. (iii) Developing
+              the Article Status Monitor tool and email alerts, to notify users
+              about new articles and updates to existing records. (iv)
+              Positioning Europe PMC as an open scholarly infrastructure through
+              increasing the portion of open source core software, improving
+              sustainability and accessibility of the service.",
+  month    =  jan,
+  year     =  2024,
+  language = "en"
+}
+@ARTICLE{Sansone2012-ud,
+  title     = "Toward interoperable bioscience data",
+  author    = "Sansone, Susanna-Assunta and Rocca-Serra, Philippe and Field,
+               Dawn and Maguire, Eamonn and Taylor, Chris and Hofmann, Oliver
+               and Fang, Hong and Neumann, Steffen and Tong, Weida and
+               Amaral-Zettler, Linda and Begley, Kimberly and Booth, Tim and
+               Bougueleret, Lydie and Burns, Gully and Chapman, Brad and Clark,
+               Tim and Coleman, Lee-Ann and Copeland, Jay and Das, Sudeshna and
+               de Daruvar, Antoine and de Matos, Paula and Dix, Ian and Edmunds,
+               Scott and Evelo, Chris T and Forster, Mark J and Gaudet, Pascale
+               and Gilbert, Jack and Goble, Carole and Griffin, Julian L and
+               Jacob, Daniel and Kleinjans, Jos and Harland, Lee and Haug,
+               Kenneth and Hermjakob, Henning and Ho Sui, Shannan J and
+               Laederach, Alain and Liang, Shaoguang and Marshall, Stephen and
+               McGrath, Annette and Merrill, Emily and Reilly, Dorothy and Roux,
+               Magali and Shamu, Caroline E and Shang, Catherine A and
+               Steinbeck, Christoph and Trefethen, Anne and Williams-Jones, Bryn
+               and Wolstencroft, Katherine and Xenarios, Ioannis and Hide,
+               Winston",
+  journal   = "Nat. Genet.",
+  publisher = "Springer Science and Business Media LLC",
+  volume    =  44,
+  number    =  2,
+  pages     = "121--126",
+  abstract  = "To make full use of research data, the bioscience community needs
+               to adopt technologies and reward mechanisms that support
+               interoperability and promote the growth of an open 'data
+               commoning' culture. Here we describe the prerequisites for data
+               commoning and present an established and growing ecosystem of
+               solutions using the shared 'Investigation-Study-Assay' framework
+               to support that vision.",
+  month     =  jan,
+  year      =  2012,
+  language  = "en"
+}
