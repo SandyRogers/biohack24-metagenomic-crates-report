@@ -58,7 +58,7 @@ authors_short: Rogers \emph{et al.}
 Multi-omics datasets are an increasingly prevalent and necessary resource for achieving scientific advances in microbial ecosystem research. 
 However, they present twin challenges to research infrastructures: firstly the utility of multi-omics datasets relies entirely on interoperability of omics layers, i.e. on formalised data linking. 
 Secondly, microbiome derived data typically lead to computationally expensive analyses, and so rely on the availability of high performance computing (HPC) infrastructures.
-Historically, these challenges have been met within the context of individual database resources or projects [@citesAsExample:Thakur2024-ey].
+Historically, these challenges have been met within the context of individual database resources or projects [@citesForInformation:Thakur2024-ey].
 These confines limit the FAIRness [@citesAsAuthority:Wilkinson2016-ig] of datasets (since they typically aren’t interlinked, directly comparable, or collectively indexed), and mean that the scope to analyse such datasets is governed by the available resources of the given project or service.
 Removing these confines, by establishing a model for the federated analysis of microbiome derived data, will allow these challenges to be met by the community as a whole.
 More compute can be brought to bear by combining [EOSC](https://eosc.eu/) and [ELIXIR](https://elixir-europe.org/) infrastructures, [Galaxy](https://galaxyproject.org/) instances, and existing resources like [EMBL-EBI’s MGnify](https://www.ebi.ac.uk/metagenomics) [@citesAsAuthority:Richardson2023-ot], but this requires adopting a common schema for sharing analysed datasets, including their provenance. 
@@ -271,7 +271,7 @@ Furthermore, it would be broadly benefical if the necessary properties to repres
 
 
 ## Track 2: metagenomic analysis pipeline execution metadata
-The analysis of a metagenome typically involves executing a suite of analysis software: quality control tools, read trimming tools, taxonomic and functional analysis tools to compare sequences against reference databases, and "plumbing" scripts to link the suite of tools together [@citesAsExample:Huson2007-ju; @citesAsExample:Morais2022-ja; @citesAsExample:Richardson2023-ot; @citesAsExample:Uritskiy2018-ud].
+The analysis of a metagenome typically involves executing a suite of analysis software: quality control tools, read trimming tools, taxonomic and functional analysis tools to compare sequences against reference databases, and "plumbing" scripts to link the suite of tools together [@citesAsPotentialSolution:Huson2007-ju; @citesAsPotentialSolution:Morais2022-ja; @citesAsPotentialSolution:Richardson2023-ot; @citesAsPotentialSolution:Uritskiy2018-ud].
 Various workflow languages and executors are chosen to build these analysis pipelines, for example [Snakemake](https://snakemake.github.io/) [@citesAsAuthority:Molder2021-wi], Common Workflow Language (CWL) [@citesAsAuthority:Crusoe2022-sb], [Nextflow](https://www.nextflow.io) [@citesAsAuthority:Di-Tommaso2017-bx], and [Galaxy](https://galaxyproject.org/) [@citesAsAuthority:Galaxy-Community2024-ic].
 
 To achieve interoperability between these pipelines or their results, metagenomic crates must be publishable from each of these workflow engines:
@@ -279,7 +279,7 @@ To achieve interoperability between these pipelines or their results, metagenomi
 1. Snakemake: Snakemake is akin to a domain specific language (DSL) that adds additional syntax to the [Python language](https://www.python.org). Therefore, publishing an RO-Crate of a Snakemake pipeline execution should be possible using existing tooling, e.g. the [ro-crate-py package](https://github.com/ResearchObject/ro-crate-py) [@citesAsPotentialSolution:Chadwick2024-va].
 2. CWL: Existing tooling allows a CWL-described pipeline and its execution to be published as RO-Crates [@citesAsPotentialSolution:Leo2024-wa].
 3. Nextflow: Prior to this project, progress had been made towards a workflow execution RO-Crate output for Nextflow pipelines via the [`nf-prov` plugin](https://github.com/fbartusch/nf-prov/tree/workflow-run-crate).
-4. Galaxy: Galaxy instances can enable support for exporting workflow execution RO-Crates [@citesAsEvidence:fair-ro-crate-in-galaxy;Hiltemann_2023].
+4. Galaxy: Galaxy instances can enable support for exporting workflow execution RO-Crates [@citesAsEvidence:fair-ro-crate-in-galaxy; @citesForInformation:Hiltemann_2023].
 
 We therefore focussed effort on Nextflow support, described next, and on potential improvements to the Python tooling which may eventually aid Snakemake support (described in Track 3 below).
 
@@ -311,7 +311,7 @@ Additional to the process label which is focussed on resource allocation, Nextfl
 ```groovy
 process FASTP {
     label 'process_medium'
-    ext name: 'fastp', applicationCategory: 'http://edamontology.org/operation_0510'
+    ext name: 'fastp', applicationCategory: '//edamontology.org/operation_0510'
     // process definition here
 }
 ```
@@ -484,14 +484,14 @@ It serves the following purposes:
    
 Figure 4 shows the architecture of the RoCrate Browser:
 
-![The architecture of the `RO-Crate Browser` ](./fig-x-ro-crate-browser-architecture.svg)
+![The architecture of the `RO-Crate Browser` ](./fig-x-ro-crate-browser-architecture.png)
 
 
 ### Converting an RO-Crate to a Browsable self-contained website:
-The Crate browser built on previous work done by David Lopez on this repository [https://github.com/davelopez/ro-crate-zip-explorer/tree/main/examples/vue/ro-crate-zip-vue]. 
+The Crate browser built on previous work done by David Lopez on the [ro-crate-zip-explorer repository](https://github.com/davelopez/ro-crate-zip-explorer/tree/main/examples/vue/ro-crate-zip-vue]). 
 This was a tool initially designed to list the contents of an RO-Crate zip file.
 As mentioned above, the RO-Crate browser builds on this to give a more interactive and user-friendly way to view the contents of an RO-Crate zip file as a self-contained website.
-The 2 diagrams below demonstrate how it works:
+The two diagrams below demonstrate how it works:
 
 ![An image describing the RO Crate conversion feature of the `Ro Crate Browser` ](./fig-x-converting-ro-crates.png)
 
@@ -510,7 +510,7 @@ Interlinking crates of these various types is done by referencing each by its UR
 [Workflow Run RO Crates](https://w3id.org/ro/wfrun/workflow/0.5) [@citesAsAuthority:usesMethodIn:citesAsPotentialSolution:Leo2024-wa] uses a [`schema.org/CreateAction`](https://schema.org/CreateAction) to semantically link a workflow (which is itself a Dataset) to its output `Dataset`.
 Formalised workflow datasets (e.g. the released codebase of a pipeline) can be made available through [WorkflowHub](https://workflowhub.eu/), a public repository for workflows.
 For example [https://doi.org/10.48546/workflowhub.workflow.384.3](https://doi.org/10.48546/workflowhub.workflow.384.3) points to the workflow "metaGOflow: A workflow for marine Genomic Observatories' data analysis", and a [Workflow RO-Crate](https://w3id.org/workflowhub/workflow-ro-crate/) can be rendered for this workflow.
-For primary datasets, some repositories support RO-Crate export of data/metadata objects, notably [Datavase](https://dataverse.org/) through external plugins [@citesAsPotentialSolution:Bloemen2024-jb].
+For primary datasets, some repositories support RO-Crate export of data/metadata objects, notably [Dataverse](https://dataverse.org/) through external plugins [@citesAsPotentialSolution:Bloemen2024-jb].
 
 In the metagenomic context, primary datasets typically follow a hierarchy similar to study – samples – assemblies – analyses.
 Whilst objects at each layer of this hierarchy could be rendered as individual RO-Crates following the RO-Crate schema and adopting recommended terms for metagenomics, in practice a single RO-Crate for a study, that was itself hierarchically structured, may facilitate easier interoperability.
