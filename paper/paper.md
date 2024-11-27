@@ -513,7 +513,7 @@ Formalised workflow datasets (e.g. the released codebase of a pipeline) can be m
 For example [https://doi.org/10.48546/workflowhub.workflow.384.3](https://doi.org/10.48546/workflowhub.workflow.384.3) points to the workflow "metaGOflow: A workflow for marine Genomic Observatories' data analysis", and a [Workflow RO-Crate](https://w3id.org/workflowhub/workflow-ro-crate/) can be rendered for this workflow.
 For primary datasets, some repositories support RO-Crate export of data/metadata objects, notably [Dataverse](https://dataverse.org/) through external plugins [@citesAsPotentialSolution:Bloemen2024-jb].
 
-In the metagenomic context, primary datasets typically follow a hierarchy similar to study ⤖ samples ⤖ assemblies ⤖ analyses.
+In the metagenomic context, primary datasets typically follow a hierarchy similar to study – samples – assemblies – analyses.
 Whilst objects at each layer of this hierarchy could be rendered as individual RO-Crates following the RO-Crate schema and adopting recommended terms for metagenomics, in practice a single RO-Crate for a study, that was itself hierarchically structured, may facilitate easier interoperability.
 Future work on recommended metagenomic crate schemas would therefore benefit from multiple entry-point support in RO-Crates, which is currently under discussion for version 2 of the RO-Crate specification (e.g. through Project 19 of BioHackathon Europe 2024).
 
