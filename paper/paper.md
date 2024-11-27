@@ -68,30 +68,31 @@ We sought to address these challenges during BioHackathon Europe 2024, by design
 In this report, we detail our approaches, advances, and the uses of this work to allow the generation of comparable analyses on heterogeneous compute infrastructures.
 
 Our vision of a "federated microbiome analysis service" centres on the idea that different parts of the metagenomic data flow should be able to be completed in varied ways, by varied groups, on varied infrastructure.
-In practice the timeline of a metagenomic dataset may look like the following:
+In practice the timeline of a metagenomic dataset may currently look like the following:
 
 1. A sampling field expedition takes place in Location X. Metadata such as sampling locations are recorded in lab-books.
 2. The sampler sends samples for DNA sequencing.
-3. The sampler sends their sequences to bioinformatician collaborators for analysis with an in-house pipeline
-  a. The pipeline assembles raw whole-genome-sequencing reads into an assembled metagenome
-  b. The pipeline analyses the assembled metagenomes with a suite of taxonomic and functional analysis tools
-4. The group submits a publication detailing their work
-5. The journal requests that the data are submitted to an archive such as [ENA](https://www.ebi.ac.uk/ena) [@citesAsAuthority:Burgin2023-ds]
-6. The reads data and some of the metadata are submitted to ENA
-7. An unrelated researcher wishes to know what existing metagenome data exist for Location X, and finds the raw sequencing data on ENA
-8. They request a metagenomic analysis service like MGnify to analyse the study
-9. MGnify repeat step 3, with a similar but not identical pipeline
+3. The sampler sends their sequences to bioinformatician collaborators for analysis with an in-house pipeline.
+    1. The pipeline assembles raw whole-genome-sequencing reads into an assembled metagenome.
+    2. The pipeline analyses the assembled metagenomes with a suite of taxonomic and functional analysis tools.
+4. The group submits a publication detailing their work.
+5. The journal requests that the data are submitted to an archive such as [ENA](https://www.ebi.ac.uk/ena) [@citesAsAuthority:Burgin2023-ds].
+6. The reads data and some of the metadata are submitted to ENA.
+7. An unrelated researcher wishes to know what existing metagenome data exist for Location X, and finds the raw sequencing data on ENA.
+8. They request a metagenomic analysis service like MGnify to analyse the study.
+9. MGnify repeat step 3, with a similar but not identical pipeline.
 
 If a federated microbiome analysis service was sufficiently easy to opt into, then steps 4–9 could be streamlined by the original analysis data product being made publicly available (and discoverable) more directly.
 Of course, existing strategies for this already exist: where publishers do not mandate that sequencing data is submitted to a dedicated repository like ENA, researchers and authors often submit their data (perhaps including the analysis products as well) to a generic digital object repository like [Zenodo](https://zenodo.org/).
 This has the benefits of making the data publicly available, and resolvable from a digital object identifier [DOI](https://www.doi.org/).
 However, it does not guarantee anything about the metadata or primary data completeness and quality, the schema, or its reusability in practice.
+Likewise, the in-house pipeline used in step 3 above may not be publicly available (e.g. on [WorkflowHub](https://workflowhub.eu/)), described in any publication, or properly referenced by any analysis data products that are made available on a data repository.
 
 Therefore in this project we have sought to create the tooling and standards necessary for groups to produce metagenomic sampling and analysis products with enough contextual metadata for them to be practically reusable.
 A schematic of the envisioned federation is shown in Figure 1.
 We identified several key points in the process where work was required: either in identifying and agreeing metadata terms, or in improving tooling.
 
-![Conceptual schematic of a federated microbiome analysis service, including work done during this BioHackathon. In this scenario, metagenomics samples' (and studies') metadata should be captured following a common RO-Crate profile. Pipeline processes, embedded tools and results should be annotated so that their execution and creation provenance can be maintained. This allows, for example, for various groups to reuse assemblies whilst maintaining a chain of provenance. Analyses of metagenomics raw reads and assemblies (or metagenome-assembled genomes) should also follow a shared standard, so that downstream users, clients, and indexes can automatically understand how to index and compare these analyses from heterogeneous pipelines. Finally, metagenomic RO-Crates should make use of RO-Crate's preview features so that they can be self-rendering - for example it should be easy to view any HTML renderings of metadata and results contained within the crate.](./fig1-federated-microbiome-analysis-schematic.png)
+![Conceptual schematic of a federated microbiome analysis service, including work done during this BioHackathon. In this scenario, metagenomics samples' and studies' metadata should be captured following a common RO-Crate profile. Pipeline processes, embedded tools, and results should be annotated so that their execution and creation provenance can be maintained. This allows, for example, for various groups to reuse assemblies whilst maintaining a chain of provenance. Analyses of metagenomics raw reads and assemblies (or metagenome-assembled genomes) should also follow a shared standard, so that downstream users, clients, and indexes can automatically understand how to index and compare these analyses from heterogeneous pipelines. Finally, metagenomic RO-Crates should make use of RO-Crate's preview features so that they can be self-rendering - for example it should be easy to view any HTML renderings of metadata and results contained within the crate.](./fig1-federated-microbiome-analysis-schematic.png)
 
 
 # Methods
@@ -107,7 +108,7 @@ We therefore identified the following areas for development:
 During BioHackathon Europe 2024, we worked on these three areas as three distinct tracks as shown in Figure 1.
 
 ## Rationale for using RO-Crates
-RO-Crate was selected as the metadata format and packaing method for this project thanks to its basis in JSON-LD (which is widely supported with tooling in every relevant language), and its ability to reference both typed metadata entities and primary data file objects.
+RO-Crate was selected as the metadata format and packaging method for this project thanks to its basis in JSON-LD (which is widely supported with tooling in every relevant language), and its ability to reference both typed metadata entities and primary data file objects.
 For example, consider an idealised structured description of a metagenomic dataset:
 
 ```yaml
@@ -136,7 +137,7 @@ THIS:
                         WHICH_IS_A: TAXONOMIC_ASSIGNMENT
                         reference: "https://gtdb.ecogenomic.org/"
                     - count:
-                        WHICH_IS_A: OCCURENCE_COUNT
+                        WHICH_IS_A: OCCURRENCE_COUNT
                         source:
                             tool: "https://github.com/Ecogenomics/GTDBTk"
                             version: "2.4.0"
@@ -236,10 +237,10 @@ We drafted the following metadata schema for a metagenomic sample:
 
 | **Type**  | **Field**            | **Description**                                 |
 | --------- | -------------------- | ----------------------------------------------- |
-| MANDATORY | `submitted_to_insdc` | submitted to insdc                              |
+| MANDATORY | `submitted_to_insdc` | submitted to INSDC                              |
 | MANDATORY | `investigation_type` | investigation type                              |
 | MANDATORY | `study_name`         | study name                                      |
-| MANDATORY | `study_id`           | Id of the study to which the sample belongs     |
+| MANDATORY | `study_id`           | id of the study to which the sample belongs     |
 | MANDATORY | `lat_lon`            | geographic location (longitude)                 |
 | MANDATORY | `geo_loc_name`       | geographic location (country and/or sea,region) |
 | MANDATORY | `collection_date`    | collection date                                 |
@@ -249,8 +250,8 @@ We drafted the following metadata schema for a metagenomic sample:
 | MANDATORY | `env_package`        | environmental package                           |
 | MANDATORY | `lat_lon`            | geographic location (latitude)                  |
 | MANDATORY | `taxid`              | NCBI sample classification                      |
-| MANDATORY | `elevation`          | Elevation                                       |
-| MANDATORY | `depth`              | Depth                                           |
+| MANDATORY | `elevation`          | elevation (above ground)                        |
+| MANDATORY | `depth`              | depth (below water)                             |
 
 ### Availability of relevant Schema.org and Bioschemas terms
 From these draft metadata specifications, we began searching for the availability or Schema.org and/or Bioschemas terms to adopt for each metadata field, yielding a small number of apparent matches:
@@ -265,9 +266,9 @@ There appears to be a lack of appropriate Schema.org or Bioschemas terms for som
 Notably:
 
 * `depth` is not a possibly property of [`https://schema.org/GeoCoordinates`](https://schema.org/GeoCoordinates).
-* `biome` is a crucial concept in metagenomics, often following an ontology such as [GOLD](https://gold.jgi.doe.gov/ecosystem_classification) or [EnvO](https://environmentontology.com) [@citesAsAuthority:Buttigieg2016-xf], but does not appear to have a schema compatible type in existing vocabularies
+* `biome` is a crucial concept in metagenomics, often following an ontology such as [GOLD](https://gold.jgi.doe.gov/ecosystem_classification) or [ENVO](https://environmentontology.com) [@citesAsAuthority:Buttigieg2016-xf], but does not appear to have a schema compatible type in existing vocabularies
 
-Furthermore, it would be broadly benefical if the necessary properties to represent metaegenomic studies and samples were directly available properties on Bioschemas `Studies` and `Samples` vocabulary groups.
+Furthermore, it would be broadly beneficial if the necessary properties to represent metagenomic studies and samples were directly available properties on Bioschemas `Studies` and `Samples` vocabulary groups.
 
 
 ## Track 2: metagenomic analysis pipeline execution metadata
@@ -290,7 +291,7 @@ To enable quick testing of the nf-prov plugin we created a simple Nextflow pipel
 ### Process labels, ext directive and meta.yaml in nf-core modules
 Process labels, ext directive and meta.yaml are three different entities which seemed fitting for out tasks of embedding tool and output descriptions of Nextflow workflows in Research Object Crates. The following section explains each of those entities and shows which information can be extracted from them.
 
-All Nextflow pipelines but especially nf-core pipelines and pipelines created using the nf-core template can use nf-core modules and subworkflows. These enable code reuse and modularization of the pipeline code. Nf-core modules make use of the process labels within the module code. These labels are generalized and point towards the defined process resources limits which are defined with `conf/base.config` for example like
+All Nextflow pipelines but especially nf-core pipelines and pipelines created using the nf-core template can use nf-core modules and subworkflows. These enable code reuse and modularisation of the pipeline code. Nf-core modules make use of the process labels within the module code. These labels are generalised and point towards the defined process resources limits which are defined with `conf/base.config` for example like
 
 ```groovy
 withLabel:process_medium {
@@ -311,7 +312,8 @@ Additional to the process label which is focussed on resource allocation, Nextfl
 ```groovy
 process FASTP {
     label 'process_medium'
-    ext name: 'fastp', applicationCategory: '//edamontology.org/operation_0510'
+    ext name: 'fastp', 
+        applicationCategory: '//edamontology.org/operation_0510'
     // process definition here
 }
 ```
@@ -320,7 +322,7 @@ All nf-core modules come with a `meta.yaml` file which holds information about t
 
 ### Embedding Tool and Output Descriptions of Nextflow Workflows in Research Object Crates
 
-A variety of metagenomics workflows exist which perform similar analytical tasks and generate comparable outputs. However, it is challenging to exchange and programmatically ingest the results from these workflows for further downstream analysis due to the lack of standardized, machine-readable descriptions. To address this gap, our approach aims to enrich metagenomics workflows with structured metadata by embedding tool and output descriptions directly into Research Object (RO) Crates, specifically leveraging the [Workflow Run RO Crate](https://w3id.org/ro/wfrun/workflow/0.5) format [@citesAsAuthority:usesMethodIn:citesAsPotentialSolution:Leo2024-wa]. This solution allows workflow outputs to be annotated with ontology terms that detail file contents, enabling interoperability and ease of reuse. It is important that existing workflows can be enhanced with minimal additions, such as specific keywords and ontology tags, without requiring any modifications to the workflow's core functionality.
+A variety of metagenomics workflows exist which perform similar analytical tasks and generate comparable outputs. However, it is challenging to exchange and programmatically ingest the results from these workflows for further downstream analysis due to the lack of standardised, machine-readable descriptions. To address this gap, our approach aims to enrich metagenomics workflows with structured metadata by embedding tool and output descriptions directly into Research Object (RO) Crates, specifically leveraging the [Workflow Run RO Crate](https://w3id.org/ro/wfrun/workflow/0.5) format [@citesAsAuthority:usesMethodIn:citesAsPotentialSolution:Leo2024-wa]. This solution allows workflow outputs to be annotated with ontology terms that detail file contents, enabling interoperability and ease of reuse. It is important that existing workflows can be enhanced with minimal additions, such as specific keywords and ontology tags, without requiring any modifications to the workflow's core functionality.
 
 After evaluating several methods, we chose to build upon a fork of the [`nf-prov` plugin](https://github.com/fbartusch/nf-prov/tree/workflow-run-crate), extending its functionality to better align with our requirements which can be found in our own [fork famosab/nf-prov](https://github.com/famosab/nf-prov/tree/workflow-run-crate) in the branch `workflow-run-crate`. This enhancement should allow for the integration of descriptions for both tools used and file contents produced within each workflow. To achieve this, we employ the Nextflow `ext` directive in each process, which specifies a unique keyword. This keyword links to metadata stored in a corresponding YAML file (e.g., `meta.yaml` for `nf-core` processes), allowing tool-specific and output-specific annotations. Workflow developers have the flexibility to include any metadata they find relevant; however, we recommend specifying at least a name, description and url for tools and tagging primary output files with ontologies that specify both file format and content. For instance, a gzipped FASTA file containing an assembly should be annotated with the format terms FASTA ([EDAM format_1929](http://edamontology.org/format_1929)) and GZIP ([EDAM format_3989](http://edamontology.org/format_3989)) as well as a data term providing information about what the file content represents ("fragment_assembly", [EDAM data_0925](https://bioportal.bioontology.org/ontologies/EDAM?p=classes&conceptid=data_0925)), adopting terms from the [EDAM ontology](https://edamontology.org) [@citesForInformation:Black2022-or].
 
@@ -346,7 +348,7 @@ nf_prov:
           - "http://edamontology.org/format_3989"
 ```
 
-While substantial progress was made during the hackathon, more work remains to be done. The nf-prov plugin that our work is based on will, in some scenarios, produce invalid RO crates by writing nested items. We have raised this issue with the developer of the plugin. During the biohackathon, we successfully implemented the tool description component, but output descriptions—though feasible through a similar approach—are not yet propagated to the RO crate. 
+While substantial progress was made during the hackathon, more work remains to be done. The nf-prov plugin that our work is based on will, in some scenarios, produce invalid RO crates by writing nested items. We have raised this issue with the developer of the plugin. During the BioHackathon, we successfully implemented the tool description component, but output descriptions—though feasible through a similar approach—are not yet propagated to the RO crate. 
 
 While our current efforts focus on Nextflow workflows, we aim to extend this approach to other workflow management systems, such as Galaxy, where a similar RO Crate structure could provide consistent metadata across diverse platforms. Furthermore, future work would include integrating this method into existing metagenomics workflows to further promote interoperability and reuse in the metagenomics research community.
 
@@ -505,7 +507,7 @@ In this BioHackathon project, we conceptualised this as a "federated microbiome 
 We identified and worked on metadata standards and analysis tooling toward this vision, adopting RO-Crates [@citesAsAuthority:Bechhofer2013-wj; @usesMethodIn:Soiland-Reyes2022-yh] as the standard to support it.
 
 ## RO-Crate types, linking, and hierarchies
-RO-Crates are a generic approach to packaing research objects and their metadata, whether those objects be primary data files like metagenomic sequencing reads, downstream data files like a metagenome's taxonomic profile, or a workflow codebase like an analysis pipeline.
+RO-Crates are a generic approach to packaging research objects and their metadata, whether those objects be primary data files like metagenomic sequencing reads, downstream data files like a metagenome's taxonomic profile, or a workflow codebase like an analysis pipeline.
 Interlinking crates of these various types is done by referencing each by its URI and type: a metagenomic analysis crate could have a root [`schema.org/Dataset`](https://schema.org/Dataset) that [`isBasedOn`](https://schema.org/isBasedOn) a metagenomic sample crate at `doi.org/10.1000/example/sample`.
 [Workflow Run RO Crates](https://w3id.org/ro/wfrun/workflow/0.5) [@citesAsAuthority:usesMethodIn:citesAsPotentialSolution:Leo2024-wa] uses a [`schema.org/CreateAction`](https://schema.org/CreateAction) to semantically link a workflow (which is itself a Dataset) to its output `Dataset`.
 Formalised workflow datasets (e.g. the released codebase of a pipeline) can be made available through [WorkflowHub](https://workflowhub.eu/), a public repository for workflows.
@@ -555,8 +557,8 @@ We have also identified areas where future effort would push this federated serv
 
 
 ## Acknowledgements
-We thank ELIXIR, the research infrastructure for Life-science data, and the organisers of BioHackathon Europe 2022 for delivering the BioHackathon and funding the travel costs of ABR and AS.
+We thank ELIXIR, the research infrastructure for Life-science data, and the organisers of BioHackathon Europe 2024 for delivering the BioHackathon and funding the travel costs of ABR and AS.
 
-We are grateful to Eli Chadwick and Nick Duty for fruitful discussions about the future directions of RO-Crate and Bioschemas, resepectively.
+We are grateful to Eli Chadwick and Nick Duty for fruitful discussions about the future directions of RO-Crate and Bioschemas, respectively.
 
 ## References
