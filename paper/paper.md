@@ -515,7 +515,7 @@ For primary datasets, some repositories support RO-Crate export of data/metadata
 
 In the metagenomic context, primary datasets typically follow a hierarchy similar to study – samples – assemblies – analyses.
 Whilst objects at each layer of this hierarchy could be rendered as individual RO-Crates following the RO-Crate schema and adopting recommended terms for metagenomics, in practice a single RO-Crate for a study, that was itself hierarchically structured, may facilitate easier interoperability.
-Future work on recommended metagenomic crate schemas would therefore benefit from multiple entry-point support in RO-Crates, which is currently under discussion for version 2 of the RO-Crate specification (e.g. through Project 19 of BioHackathon Europe 2024).
+Future work on recommended metagenomic crate schemas would therefore benefit from support for multiple "entry-points" in RO-Crates, which is currently under discussion for version 2 of the RO-Crate specification (e.g. through Project 19 of BioHackathon Europe 2024).
 
 ## Adoption of metadata standards
 Beyond the tooling needed to export RO-Crates, two distinct areas of metadata annotation are needed for adopters of a proposed metagenomic crate:
