@@ -20,13 +20,16 @@ authors:
     affiliation: 4
   - name: Alexander Sczyrba
     orcid: 0000-0002-4405-3847
-    affiliation: 3
+    affiliation: [3, 5]
   - name: Mahfouz Shehu
     orcid: 0009-0002-9470-0368
     affiliation: 1
   - name: Tom Tubbesing
     orcid: 0000-0003-2101-0200
     affiliation: 3
+  - name: Benedikt Osterholz
+    orcid: 0009-0007-0183-2799
+    affiliation: [3, 5]
   - name: Anil Wipat
     orcid: 0000-0001-7310-4191
     affiliation: 4
@@ -36,10 +39,13 @@ affiliations:
     index: 1
   - name: Institute for Translational Bioinformatics (University Hospital Tübingen) and Quantitative Biology Center (University of Tübingen)
     index: 2
-  - name: Bielefeld University
+  - name: Computational Metagenomics Group, Center for Biotechnology (CeBiTec), Bielefeld University
     index: 3
   - name: Newcastle University
     index: 4
+  - name: IBG-5, Computational Metagenomics, Institute of Bio- and Geosciences (IBG), Research Center Juelich GmbH
+    index: 5
+
 date: 8 November 2024
 cito-bibliography: paper.bib
 event: BH24EU
