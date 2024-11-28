@@ -63,7 +63,7 @@ authors_short: Rogers \emph{et al.}
 # Introduction
 Multi-omics datasets are an increasingly prevalent and necessary resource for achieving scientific advances in microbial ecosystem research. 
 However, they present twin challenges to research infrastructures: firstly the utility of multi-omics datasets relies entirely on interoperability of omics layers, i.e. on formalised data linking. 
-Secondly, microbiome derived data typically lead to computationally expensive analyses, and so rely on the availability of high performance computing (HPC) infrastructures or cloud infrastructures like the de.NBI Cloud [@citesAsAuthority:10.12688/f1000research.19013.1].
+Secondly, microbiome derived data typically lead to computationally expensive analyses, and so rely on the availability of high performance computing (HPC) or cloud infrastructures like the de.NBI Cloud [@citesAsAuthority:10.12688/f1000research.19013.1].
 Historically, these challenges have been met within the context of individual database resources or projects [@citesForInformation:Thakur2024-ey].
 These confines limit the FAIRness [@citesAsAuthority:Wilkinson2016-ig] of datasets (since they typically aren’t interlinked, directly comparable, or collectively indexed), and mean that the scope to analyse such datasets is governed by the available resources of the given project or service.
 Removing these confines, by establishing a model for the federated analysis of microbiome derived data, will allow these challenges to be met by the community as a whole, and so enable major challenges like global microbial biodiversity monitoring to be met by a better connected collection of existing resources [@citesAsRecommendedReading:Waterhouse2022-wq].
