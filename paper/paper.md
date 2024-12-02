@@ -277,7 +277,7 @@ Furthermore, it would be broadly beneficial if the necessary properties to repre
 
 
 ## Track 2: metagenomic analysis pipeline execution metadata
-The analysis of a metagenome typically involves executing a suite of analysis software: quality control tools, read trimming tools, taxonomic and functional analysis tools to compare sequences against reference databases, and "plumbing" scripts to link the suite of tools together [@citesAsPotentialSolution:Huson2007-ju; @citesAsPotentialSolution:Morais2022-ja; @citesAsPotentialSolution:Richardson2023-ot; @citesAsPotentialSolution:Uritskiy2018-ud].
+The analysis of a metagenome typically involves executing a suite of analysis software: quality control tools, assembly tools, taxonomic and functional analysis tools to compare sequences against reference databases, and "plumbing" scripts to link the suite of tools together [@citesAsPotentialSolution:Huson2007-ju; @citesAsPotentialSolution:Morais2022-ja; @citesAsPotentialSolution:Richardson2023-ot; @citesAsPotentialSolution:Uritskiy2018-ud].
 Various workflow languages and executors are chosen to build these analysis pipelines, for example [Snakemake](https://snakemake.github.io/) [@citesAsAuthority:Molder2021-wi], Common Workflow Language (CWL) [@citesAsAuthority:Crusoe2022-sb], [Nextflow](https://www.nextflow.io) [@citesAsAuthority:Di-Tommaso2017-bx], and [Galaxy](https://galaxyproject.org/) [@citesAsAuthority:Galaxy-Community2024-ic].
 
 To achieve interoperability between these pipelines or their results without adding further post-processing steps, metagenomic crates must be publishable from each of these workflow engines:
