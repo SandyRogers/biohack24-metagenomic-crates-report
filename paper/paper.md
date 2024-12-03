@@ -564,6 +564,9 @@ We have also identified areas where future effort would push this federated serv
 ## Acknowledgements
 We thank ELIXIR, the research infrastructure for Life-science data, and the organisers of BioHackathon Europe 2024 for delivering the BioHackathon and funding the travel costs of ABR and AS.
 
+We acknowledge funding for BO, AS, and TT from the European Union’s Horizon Europe BLUETOOLS project (grant agreement No. 101081957) and the Deutsche Forschungsgemeinschaft (DFG, German Research Foundation) – project number 460129525 (NFDI4Microbiota).
+
 We are grateful to Eli Chadwick and Nick Duty for fruitful discussions about the future directions of RO-Crate and Bioschemas, respectively.
+
 
 ## References
