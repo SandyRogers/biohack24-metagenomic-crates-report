@@ -78,21 +78,21 @@ In practice the timeline of a metagenomic dataset may currently look like the fo
 
 1. A sampling field expedition takes place in Location X. Metadata such as sampling locations are recorded in lab-books.
 2. The sampler sends samples for DNA sequencing.
-3. The sampler sends their sequences to bioinformatician collaborators for analysis with an in-house pipeline.
-    1. The pipeline assembles raw whole-genome-sequencing reads into an assembled metagenome.
-    2. The pipeline analyses the assembled metagenomes with a suite of taxonomic and functional analysis tools.
+3. The sampler sends their sequences to bioinformatician collaborators for analysis with a workflow like the [Metagenomics-Toolkit](https://github.com/metagenomics/metagenomics-tk) [@citesAsAuthority:Belmann2024.10.22.619569].
+    1. The workflow assembles raw whole-genome-sequencing reads into an assembled metagenome.
+    2. The workflow analyses the assembled metagenomes with a suite of taxonomic and functional analysis tools.
 4. The group submits a publication detailing their work.
 5. The journal requests that the data are submitted to an archive such as [ENA](https://www.ebi.ac.uk/ena) [@citesAsAuthority:Burgin2023-ds].
 6. The reads data and some of the metadata are submitted to ENA.
 7. An unrelated researcher wishes to know what existing metagenome data exist for Location X, and finds the raw sequencing data on ENA.
-8. They request a metagenomic analysis service like MGnify to analyse the study.
-9. MGnify repeat step 3, with a similar but not identical pipeline.
+8. They request a metagenomic analysis service like MGnify to analyse the study again.
+9. MGnify repeats step 3, with a similar but not identical workflow.
 
 If a federated microbiome analysis service was sufficiently easy to opt into, then steps 4–9 could be streamlined by the original analysis data product being made publicly available (and discoverable) more directly.
 Of course, existing strategies for this already exist: where publishers do not mandate that sequencing data is submitted to a dedicated repository like ENA, researchers and authors often submit their data (perhaps including the analysis products as well) to a generic digital object repository like [Zenodo](https://zenodo.org/).
 This has the benefits of making the data publicly available, and resolvable from a digital object identifier ([DOI](https://www.doi.org/)).
 However, it does not guarantee anything about the metadata or primary data completeness and quality, the schema, or its reusability in practice.
-Likewise, the in-house pipeline used in step 3 above may not be publicly available (e.g. on [WorkflowHub](https://workflowhub.eu/)), described in any publication, or properly referenced by any analysis data products that are made available on a data repository.
+Similarly, step 3 could involve an in-house workflow that is not publicly available (e.g. on [WorkflowHub](https://workflowhub.eu/)), described in any publication, or properly referenced by the analysis data products made available on a data repository.
 
 Therefore in this project we have sought to create the tooling and standards necessary for groups to produce metagenomic sampling and analysis products with enough contextual metadata for them to be practically reusable.
 A schematic of the envisioned federation is shown in Figure 1.
