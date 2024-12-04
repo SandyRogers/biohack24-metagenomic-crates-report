@@ -295,7 +295,7 @@ We therefore focussed effort on Nextflow support, described next, and on potenti
 To enable quick testing of the nf-prov plugin we created a simple Nextflow pipeline based on the nf-core template [@citesAsAuthority:Ewels2020-dj; @citesAsRelated:Langer2024-pd]. The pipeline is available on GitHub at [famosab/wrrocmetatest](https://github.com/famosab/wrrocmetatest). It runs [fastp](https://github.com/OpenGene/fastp) and [megahit](https://github.com/voutcn/megahit). The README holds all necessary information to run the pipeline locally. Nf-core's tooling simplified the creation of this pipeline and so enabled us to focus our work on the nf-prov plugin.
 
 ### Process labels, ext directive and meta.yaml in nf-core modules
-Process labels, ext directive and meta.yaml are three different entities which seemed fitting for out tasks of embedding tool and output descriptions of Nextflow workflows in RO-Crates. The following section explains each of those entities and shows which information can be extracted from them.
+Process labels, ext directive and meta.yaml are three different entities which seemed fitting for our tasks of embedding tool and output descriptions of Nextflow workflows in RO-Crates. The following section explains each of those entities and shows which information can be extracted from them.
 
 All Nextflow pipelines, but especially nf-core pipelines and pipelines created using the nf-core template, can use nf-core modules and subworkflows. These enable code reuse and modularisation of the pipeline code. Nf-core modules make use of the process labels within the module code. These labels are generalised and point towards the defined process resources limits which are defined with `conf/base.config` for example like
 
