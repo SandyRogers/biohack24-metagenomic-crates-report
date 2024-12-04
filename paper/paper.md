@@ -324,7 +324,7 @@ process FASTP {
 }
 ```
 
-All nf-core modules come with a `meta.yaml` file which holds information about the tool(s) used in the module. the input and output files, a general description of the tool and the module maintainer(s). The fields relating to the used tools, the input files, and the output files are particularly relevant to the creation of the RO-Crate. The `meta.yaml` file can be used to extract the necessary information, which we added to the `nf-prov` plugin as described below.
+All nf-core modules come with a `meta.yaml` file which holds information about the tool(s) used in the module. The input and output files, a general description of the tool and the module maintainer(s). The fields relating to the used tools, the input files, and the output files are particularly relevant to the creation of the RO-Crate. The `meta.yaml` file can be used to extract the necessary information, which we added to the `nf-prov` plugin as described below.
 
 ### Embedding tool and output descriptions of Nextflow workflows in RO-Crates
 
