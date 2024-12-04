@@ -246,17 +246,18 @@ We drafted the following metadata schema for a metagenomic sample:
 | MUST | `investigation_type` | investigation type                              |
 | MUST | `study_name`         | study name                                      |
 | MUST | `study_id`           | id of the study to which the sample belongs     |
+| MUST | `lat_lon`            | geographic location (latitude)                  |
 | MUST | `lat_lon`            | geographic location (longitude)                 |
+| MUST | `elevation`          | elevation (above ground)                        |
+| MUST | `depth`              | depth (below water)                             |
 | MUST | `geo_loc_name`       | geographic location (country and/or sea,region) |
 | MUST | `collection_date`    | collection date                                 |
 | MUST | `biome`              | environment (biome)                             |
 | MUST | `feature`            | environment (feature)                           |
 | MUST | `material`           | environment (material)                          |
 | MUST | `env_package`        | environmental package                           |
-| MUST | `lat_lon`            | geographic location (latitude)                  |
 | MUST | `taxid`              | NCBI sample classification                      |
-| MUST | `elevation`          | elevation (above ground)                        |
-| MUST | `depth`              | depth (below water)                             |
+
 
 ### Availability of relevant Schema.org and Bioschemas terms
 From these draft metadata specifications, we began searching for the availability or Schema.org and/or Bioschemas terms to adopt for each metadata field, yielding a small number of apparent matches:
