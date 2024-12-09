@@ -20,7 +20,7 @@ authors:
     affiliation: 4
   - name: Alexander Sczyrba
     orcid: 0000-0002-4405-3847
-    affiliation: [3, 5]
+    affiliation: "3, 5"
   - name: Mahfouz Shehu
     orcid: 0009-0002-9470-0368
     affiliation: 1
@@ -29,7 +29,7 @@ authors:
     affiliation: 3
   - name: Benedikt Osterholz
     orcid: 0009-0007-0183-2799
-    affiliation: [3, 5]
+    affiliation: "3, 5"
   - name: Anil Wipat
     orcid: 0000-0001-7310-4191
     affiliation: 4
@@ -43,7 +43,7 @@ affiliations:
     index: 3
   - name: Newcastle University
     index: 4
-  - name: IBG-5, Computational Metagenomics, Institute of Bio- and Geosciences (IBG), Research Center Juelich GmbH
+  - name: IBG-5, Computational Metagenomics, Institute of Bio- and Geosciences (IBG), Forschungszentrum Jülich
     index: 5
 
 date: 8 November 2024
