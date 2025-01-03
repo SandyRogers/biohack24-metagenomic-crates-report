@@ -301,6 +301,7 @@ We therefore focussed effort on Nextflow support, described next, and on potenti
 
 To enable quick testing of the nf-prov plugin we created a simple Nextflow pipeline based on the nf-core template [@citesAsAuthority:Ewels2020-dj; @citesAsRelated:Langer2024-pd]. The pipeline is available on GitHub at [famosab/wrrocmetatest](https://github.com/famosab/wrrocmetatest). It runs [fastp](https://github.com/OpenGene/fastp) and [megahit](https://github.com/voutcn/megahit). The README holds all necessary information to run the pipeline locally. Nf-core's tooling simplified the creation of this pipeline and so enabled us to focus our work on the nf-prov plugin.
 
+
 ### Process labels, ext directive and meta.yaml in nf-core modules
 Process labels, ext directive and meta.yaml are three different entities which seemed fitting for our tasks of embedding tool and output descriptions of Nextflow workflows in RO-Crates. The following section explains each of those entities and shows which information can be extracted from them.
 
@@ -525,6 +526,7 @@ Interlinking crates of these various types is done by referencing each by its UR
 [Workflow Run RO-Crates](https://w3id.org/ro/wfrun/workflow/0.5) [@citesAsAuthority:usesMethodIn:citesAsPotentialSolution:Leo2024-wa] uses a [`schema.org/CreateAction`](https://schema.org/CreateAction) to semantically link a workflow (which is itself a `Dataset`) to its output `Dataset`.
 Formalised workflow datasets (e.g. the released codebase of a pipeline) can be made available through [WorkflowHub](https://workflowhub.eu/), a public repository for workflows.
 For example [https://doi.org/10.48546/workflowhub.workflow.384.3](https://doi.org/10.48546/workflowhub.workflow.384.3) points to the workflow "metaGOflow: A workflow for marine Genomic Observatories' data analysis", and a [Workflow RO-Crate](https://w3id.org/workflowhub/workflow-ro-crate/) can be rendered for this workflow.
+Tooling also exists to aid in rendering a pipeline specification or codebase as a crate: for example the [release of nf-core/tools 3.1.0](https://nf-co.re/blog/2024/tools-3_1_0) adds a feature to render an RO-Crate description of an nf-core compatible pipeline by running the command `nf-core pipelines crate`, with metadata like authorship controlled by a config file manifest.
 For primary datasets, some repositories support RO-Crate export of data/metadata objects, notably [Dataverse](https://dataverse.org/) through external plugins [@citesAsPotentialSolution:Bloemen2024-jb].
 
 In the metagenomic context, primary datasets typically follow a hierarchy similar to study – samples – assemblies – analyses.
