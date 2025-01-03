@@ -379,6 +379,7 @@ However, to our knowledge all existing validation tools use *runtime* validation
 That is, the validator tool takes as input a complete crate and determines whether and how it fails to conform to the expected standards.
 In other areas of software development, it is common practice to use *static* type validation: a form of static analysis where the type of variables is checked without executing the code the variables are defined in.
 In practice, static type validation allows developers to see type violations as they write their code, through integrations with their Integrated Development Environments (IDEs).
+
 In the Python ecosystem, one popular approach to introducing both static and runtime type validation is [Pydantic](https://pydantic.dev/).
 Pydantic augments Python's built-in type hints (i.e., `str` for a string) with additional types (i.e., `Latitude`), and custom types (i.e., `MetagenomicSample`):
 
