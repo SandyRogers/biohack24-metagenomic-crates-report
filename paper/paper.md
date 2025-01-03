@@ -17,34 +17,41 @@ authors:
     affiliation: 1
   - name: Matt Burridge
     orcid: 0000-0002-6201-2598
-    affiliation: 4
+    affiliation: 5
+  - name: Alireza Heidari
+    orcid: 0000-0003-0315-4403
+    affiliation: 6
   - name: Alexander Sczyrba
     orcid: 0000-0002-4405-3847
-    affiliation: "3, 5"
+    affiliation: "4, 7"
   - name: Mahfouz Shehu
     orcid: 0009-0002-9470-0368
     affiliation: 1
   - name: Tom Tubbesing
     orcid: 0000-0003-2101-0200
-    affiliation: 3
+    affiliation: 4
   - name: Benedikt Osterholz
     orcid: 0009-0007-0183-2799
-    affiliation: "3, 5"
+    affiliation: "4, 7"
   - name: Anil Wipat
     orcid: 0000-0001-7310-4191
-    affiliation: 4
+    affiliation: 5
 
 affiliations:
-  - name: EMBL-EBI
+  - name: European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
     index: 1
-  - name: Institute for Translational Bioinformatics (University Hospital Tübingen) and Quantitative Biology Center (University of Tübingen)
+  - name: Institute for Translational Bioinformatics, University Hospital Tübingen, Tübingen, Germany
     index: 2
-  - name: Computational Metagenomics Group, Center for Biotechnology (CeBiTec), Bielefeld University
+  - name: Quantitative Biology Center, University of Tübingen, Tübingen, Germany
     index: 3
-  - name: Newcastle University
+  - name: Computational Metagenomics Group, Center for Biotechnology (CeBiTec), Bielefeld University, Bielefeld, Germany
     index: 4
-  - name: IBG-5, Computational Metagenomics, Institute of Bio- and Geosciences (IBG), Forschungszentrum Jülich
+  - name: Newcastle University, Newcastle upon Tyne, UK
     index: 5
+  - name: University of Freiburg, Freiburg im Breisgau, Germany
+    index: 6
+  - name: IBG-5, Computational Metagenomics, Institute of Bio- and Geosciences (IBG), Forschungszentrum Jülich, Jülich, Germany
+    index: 7
 
 date: 8 November 2024
 cito-bibliography: paper.bib
