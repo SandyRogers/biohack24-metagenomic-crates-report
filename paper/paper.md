@@ -163,11 +163,11 @@ For example a service like [MGnify](https://www.ebi.ac.uk/metagenomics) [@citesA
 ```python
 # pseudocode
 def maybe_index_result(crate: Crate) -> bool:
-    if crate.is_a == METAGENOMIC_CRATE:
+    if crate.IS_A == METAGENOMIC_CRATE:
         database.crates.add(
-            id=crate.id, 
-            from=crate.is_based_on.id, 
-            metadata=crate.has
+            id=crate.IS, 
+            from=crate.IS_BASED_ON.ID, 
+            metadata=crate.HAS
         )
         return True
     else:
@@ -179,11 +179,11 @@ A microbial biodiversity portal like [GBIF](https://www.gbif.org/) could add the
 ```python
 # pseudocode
 def add_taxonomies_to_map(crate: Crate):
-    assert crate.is_a == METAGENOMIC_CRATE
+    assert crate.IS_A == METAGENOMIC_CRATE
     taxonomy_file = next(
         dataset 
-        for dataset in crate.has.data_in 
-        if dataset.which_is_a == METAGENOMIC_TAXONOMIC_ANALYSIS
+        for dataset in crate.HAS.DATA_IN 
+        if dataset.WHICH_IS_A == METAGENOMIC_TAXONOMIC_ANALYSIS
     )
     taxonomies_counts = read_csv(
         taxonomy_file.file_path,
@@ -192,7 +192,7 @@ def add_taxonomies_to_map(crate: Crate):
     for assignment in taxonomies_counts:
     	  database.taxonomies.add(
             assignment, 
-            location=crate.is_based_on.with.location
+            location=crate.IS_BASED_ON.WITH.location
         )
 ```
 
@@ -267,9 +267,9 @@ We drafted the following metadata schema for a metagenomic sample:
 
 
 ### Availability of relevant Schema.org and Bioschemas terms
-From these draft metadata specifications, we began searching for the availability or Schema.org and/or Bioschemas terms to adopt for each metadata field, yielding a small number of apparent matches:
+From these draft metadata specifications, we began searching for the availability of Schema.org and/or Bioschemas terms to adopt for each metadata field, yielding a small number of apparent matches:
 
-* `lat_lon`, `geo_loc_name`, `related_geocoordinates` can all be of type [`https://schema.org/GeoCoordinates`](https://schema.org/GeoCoordinates), and `elevation` can be a property of it [`https://schema.org/elevation`](https://schema.org/elevation).
+* `lat_lon`, `geo_loc_name`, `related_geocoordinates` can all be of type [`https://schema.org/GeoCoordinates`](https://schema.org/GeoCoordinates), and [`elevation`](https://schema.org/elevation) can be a property of it.
 * `last_update` can be a property following [`https://schema.org/dateModified`](https://schema.org/dateModified).
 * `material` can be a property following [`https://schema.org/material`](https://schema.org/material).
 * `related_publications` can be a list of [`https://schema.org/ScholarlyArticle`s](https://schema.org/ScholarlyArticle).
@@ -278,7 +278,7 @@ From these draft metadata specifications, we began searching for the availabilit
 There appears to be a lack of appropriate Schema.org or Bioschemas terms for some of the other mandatory and recommended terms.
 Notably:
 
-* `depth` is not a possible property of [`https://schema.org/GeoCoordinates`](https://schema.org/GeoCoordinates).
+* `depth` is not a valid property of [`https://schema.org/GeoCoordinates`](https://schema.org/GeoCoordinates).
 * `biome` is a crucial concept in metagenomics, often following an ontology such as [GOLD](https://gold.jgi.doe.gov/ecosystem_classification) or [ENVO](https://environmentontology.com) [@citesAsAuthority:Buttigieg2016-xf], but does not appear to have a schema compatible type in existing vocabularies.
 
 Furthermore, it would be broadly beneficial if the necessary properties to represent metagenomic studies and samples were directly available properties on Bioschemas `Studies` and `Samples` vocabulary groups.
@@ -373,15 +373,12 @@ One of the central challenges in handling data objects from disparate origins is
 This is the challenge addressed by frameworks like RDF (Resource Description Framework) [@citesForInformation:Berners-Lee-gx], and by constraint languages like SHACL [@citesAsAuthority:shacl]
 
 In the context of our metagenomic RO-Crates, this means ensuring that only entity types and properties that are themselves resolvable to a definition (e.g. a URI) are used, and ideally only terms from the definition repositories of [schema.org](https://schema.org) and [Bioschemas](https://bioschemas.org) [@citesAsAuthority:Gray2017-nx].
-
 There have been various developments towards validation tools for RO-Crates, that ensure these standards are followed (as well as other crate mechanics, like the existence of a root dataset), for example [`rocrate-validator`](https://github.com/crs4/rocrate-validator).
 
 However, to our knowledge all existing validation tools use *runtime* validation.
 That is, the validator tool takes as input a complete crate and determines whether and how it fails to conform to the expected standards.
-
 In other areas of software development, it is common practice to use *static* type validation: a form of static analysis where the type of variables is checked without executing the code the variables are defined in.
 In practice, static type validation allows developers to see type violations as they write their code, through integrations with their Integrated Development Environments (IDEs).
-
 In the Python ecosystem, one popular approach to introducing both static and runtime type validation is [Pydantic](https://pydantic.dev/).
 Pydantic augments Python's built-in type hints (i.e., `str` for a string) with additional types (i.e., `Latitude`), and custom types (i.e., `MetagenomicSample`):
 
@@ -507,7 +504,7 @@ Figure 4 shows the architecture of the RO-Crate Browser:
 The Crate browser built on previous work done by David Lopez on the [ro-crate-zip-explorer repository](https://github.com/davelopez/ro-crate-zip-explorer/tree/main/examples/vue/ro-crate-zip-vue]). 
 This was a tool initially designed to list the contents of an RO-Crate zip file.
 As mentioned above, the RO-Crate browser builds on this to give a more interactive and user-friendly way to view the contents of an RO-Crate zip file as a self-contained website.
-The two diagrams below demonstrate how it works:
+Figures 5 and 6 demonstrate how it functions.
 
 ![An image describing the RO-Crate conversion feature of the `RO-Crate Browser` ](./fig-x-converting-ro-crates.png)
 
@@ -547,7 +544,7 @@ Designing standards to be achievable with low effort will also help, similar to 
 In Europe, and especially within the context of [ELIXIR](https://elixir-europe.org/) resources, arguably the three most fundamental repositories for the proposed metagenomic crates are:
 
 1. [ENA](https://www.ebi.ac.uk/ena) / [BioSamples](https://www.ebi.ac.uk/biosamples) [@citesAsAuthority:Burgin2023-ds], the canonical deposition repository for primary metagenome sequences and their sampling/study metadata;
-2. [EuropePMC](https://europepmc.org/) [@citesAsAuthority:Rosonovski2024-sg], a central index of life-science publications and pre-prints;
+2. [Europe PMC](https://europepmc.org/) [@citesAsAuthority:Rosonovski2024-sg], a central index of life-science publications and pre-prints;
 3. [WorkflowHub](https://workflowhub.eu/), a repository of computational workflows that is the de-facto choice of the European bioinformatics community.
 
 Support for schema.org/Bioschemas terms in ENA/Biosamples would be advantageous both for data deposition, and for data retrieval.
